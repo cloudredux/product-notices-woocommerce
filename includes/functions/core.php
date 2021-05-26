@@ -15,17 +15,17 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 function crwcpn_global_product_notice_top() {
 	global $post;
 
-	$global_product_notice_option = get_post_meta( $post->ID, '_crwcpn_global_product_notice_option', 1 );
+	$crwcpn_global_product_notice_option = get_post_meta( $post->ID, '_crwcpn_global_product_notice_option', 1 );
 
-	$global_product_notice_top = get_option( 'wc_product_notice' );
+	$crwcpn_global_product_notice_top = get_option( 'wc_product_notice' );
 
-	$global_product_notice_color = get_option( 'wc_product_notice_color' );
+	$crwcpn_global_product_notice_color = get_option( 'wc_product_notice_color' );
 
-	if( 0 == $global_product_notice_option )
+	if( 0 == $crwcpn_global_product_notice_option )
 	{
 	?>
 		<div id="crwcpn-global-notice">
-			<div class="<?php echo $global_product_notice_color ?>"><?php echo wp_kses_post( $global_product_notice_top ); ?></div>
+			<div class="<?php echo $crwcpn_global_product_notice_color ?>"><?php echo wp_kses_post( $crwcpn_global_product_notice_top ); ?></div>
 		</div>
 	<?php
 	}
