@@ -20,8 +20,6 @@ if ( ! class_exists( 'CRWCPN_Main' ) ) :
 
 class CRWCPN_Main {
 
-	//private $post_type;
-
 	private $post_fields;
 
 	private $admin_page;
