@@ -7,13 +7,12 @@
  *
  * @author Aniket Desale
  * @package \WooCommerce Product Notice
- * @since 1.0.0
  */
 
 defined( 'ABSPATH' ) or exit;
 
 /** Settings sanitization class. Ensures saved values are of the expected type. **/
-class CRWPN_Settings_Sanitization {
+class CRWCPN_Settings_Sanitization {
 
 	static $instance;
 
@@ -23,7 +22,7 @@ class CRWPN_Settings_Sanitization {
 
 		self::$instance =& $this;
 
-		do_action_ref_array( 'crwpn_sanitize_settings', array( &$this ) );
+		do_action_ref_array( 'crwcpn_sanitize_settings', array( &$this ) );
 
 	}
 
@@ -204,19 +203,19 @@ class CRWPN_Settings_Sanitization {
 
 }
 
-function crwpn_settings_filter( $filter, $settings, $option = null ) {
+function crwcpn_settings_filter( $filter, $settings, $option = null ) {
 
-	return CRWPN_Settings_Sanitization::$instance->add_filter( $filter, $settings, $option );
+	return CRWCPN_Settings_Sanitization::$instance->add_filter( $filter, $settings, $option );
 
 }
 
 /**
  * Instantiate the Sanitizer.
  */
-add_action( 'admin_init', 'crwpn_sanitize_settings' );
+add_action( 'admin_init', 'crwcpn_sanitize_settings' );
 
-function crwpn_sanitize_settings() {
+function crwcpn_sanitize_settings() {
 
-	new CRWPN_Settings_Sanitization;
+	new CRWCPN_Settings_Sanitization;
 
 }

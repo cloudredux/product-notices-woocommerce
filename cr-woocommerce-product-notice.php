@@ -3,8 +3,10 @@
  *
  *	Plugin Name: WooCommerce Product Notice
  *	Plugin URI: https://cloudredux.com
- *	Description: 
+ *	Description: This plugin is used to show Product Notices on WooCommerce products.
  *	Version: 1.0.0
+ * 	Requires at least: 5.2
+ * 	Requires PHP:      7.2
  *	Author: CloudRedux
  *	Author URI: https://cloudredux.com
  *	License: GPL-2.0+
@@ -14,9 +16,9 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
-if ( ! class_exists( 'CRWPN_Main' ) ) :
+if ( ! class_exists( 'CRWCPN_Main' ) ) :
 
-class CRWPN_Main {
+class CRWCPN_Main {
 
 	//private $post_type;
 
@@ -60,18 +62,18 @@ class CRWPN_Main {
 
 	public function define_constants() {
 
-		define( 'CRWPN_SLUG', 'crwpn-settings' );
+		define( 'CRWCPN_SLUG', 'crwcpn-settings' );
 
-		define( 'CRWPN_VER', '1.0.0' );
+		define( 'CRWCPN_VER', '1.0.0' );
 
-		define( 'CRWPN_PT_SLUG', 'notice' );
+		define( 'CRWCPN_PT_SLUG', 'notice' );
 	}
 
 	private function includes() {
 
-		include( $this->plugin_path() . '/includes/admin/class-crwpn-register-custom-fields.php' );
+		include( $this->plugin_path() . '/includes/admin/class-crwcpn-register-custom-fields.php' );
 
-		include( $this->plugin_path() . '/includes/admin/class-crwpn-admin.php' );
+		include( $this->plugin_path() . '/includes/admin/class-crwcpn-admin.php' );
 
 		include( $this->plugin_path() . '/includes/class-sanitization.php' );
 
@@ -81,13 +83,11 @@ class CRWPN_Main {
 
 	private function init_hooks() {
 
-		//$this->post_type = new CRWPN_Post_Type();
+		$this->post_fields = new CRWCPN_Custom_Fields();
 
-		$this->post_fields = new CRWPN_Custom_Fields();
+		if ( is_admin()	) {
 
-		if ( is_admin()	 ) {
-
-			$this->admin_page = new CRWPN_Admin();
+			$this->admin_page = new CRWCPN_Admin();
 		}
 
 	}
@@ -96,7 +96,7 @@ class CRWPN_Main {
 
 		if ( ! $this->is_woocommerce_active() ) {
 		?>
-			<div class="error"><p><strong>Product Notice requires WooCommerce to be installed and active. You can download <a href="https://woocommerce.com/" target="_blank">WooCommerce</a> here.</strong></p></div>
+			<div class="error"><p><strong><?php printf( __( 'Product Notice requires WooCommerce to be installed and active. You can download <a href="%s" target="_blank">WooCommerce</a> here.' ), 'https://woocommerce.com/' );?></strong></p></div>
 		<?php
 		}
 	}
@@ -125,9 +125,9 @@ class CRWPN_Main {
 
 endif;
 
-function crwpn() {
-	return CRWPN_Main::instance();
+function crwcpn() {
+	return CRWCPN_Main::instance();
 }
 
 // fire it up!
-crwpn();
+crwcpn();

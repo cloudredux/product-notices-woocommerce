@@ -83,7 +83,7 @@ class CRWCPN_Admin {
 			array(
 				'id'      => 'wc_product_notice_color',
 			    'name'    => __( 'Notice Color', 'woocommerce-product-notice-color' ),
-			    'desc'    => __( 'Adds background color to product notice', 'woocommerce-product-notice-color' ),
+			    'desc'    => __( 'This is used to add color to product notice background', 'woocommerce-product-notice-color' ),
 			    'type'    => 'select',
 			    'class'   => 'regular-text',
 			    'options' => array(

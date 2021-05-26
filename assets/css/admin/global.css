@@ -1,21 +1,21 @@
 /**
 * Stylesheet to add global styles specific to Product Notice
 */
-#crwcpn-global-notice .default{
+#crwcpn-global-notice .default {
 	background-color: #f8f8f8;
 	border: 1px solid #ddd;
 	padding: 5px;
 	margin-bottom: 5px;
 }
 
-#crwcpn-global-notice .red{
+#crwcpn-global-notice .red {
 	background-color: #fef4f6;
 	color: #f0506e;
 	padding: 5px;
 	margin-bottom: 5px;
 }
 
-#crwcpn-global-notice .blue{
+#crwcpn-global-notice .blue {
 	background-color: #d8eafc;
 	color: #1e87f0;
 	padding: 5px;
@@ -30,21 +30,21 @@
 	margin-bottom: 5px;
 }
 
-#crwcpn-individual-product-notice .default{
+#crwcpn-individual-product-notice .default {
 	background-color: #f8f8f8;
 	border: 1px solid #ddd;
 	padding: 5px;
 	margin-bottom: 5px;
 }
 
-#crwcpn-individual-product-notice .red{
+#crwcpn-individual-product-notice .red {
 	background-color: #fef4f6;
 	color: #f0506e;
 	padding: 5px;
 	margin-bottom: 5px;
 }
 
-#crwcpn-individual-product-notice .blue{
+#crwcpn-individual-product-notice .blue {
 	background-color: #d8eafc;
 	color: #1e87f0;
 	padding: 5px;
