@@ -94,7 +94,7 @@ class CRWCPN_Main {
 
 		if ( ! $this->is_woocommerce_active() ) {
 		?>
-			<div class="error"><p><strong><?php printf( __( 'Product Notice requires WooCommerce to be installed and active. You can download <a href="%s" target="_blank">WooCommerce</a> here.' ), 'https://woocommerce.com/' );?></strong></p></div>
+			<div class="error"><p><strong><?php printf( __( 'Product Notice requires WooCommerce to be installed and active. You can download <a href="%s" target="_blank">WooCommerce</a> here.', 'cr-woocommerce-product-notice' ), 'https://woocommerce.com/' );?></strong></p></div>
 		<?php
 		}
 	}
