@@ -66,19 +66,19 @@ class CRWCPN_Custom_Fields {
 		<?php wp_nonce_field( 'crwcpn_product_notice_field', 'crwcpn_product_notice_field_nonce' );?>
 		
 		<div class="product-notice product-notice-top">
-			<h4>Notice Text</h4>
-			<p><em>Enter the information that you wish to show up on the product page after the product title.</em></p>
-			<textarea id="crwcpn_product_notice_top" class="input-textarea field-product-notice-top" name="crwcpn_product_notice_top" rows="5" cols="50" placeholder="<?php _e( 'Use of HTML is supported in this field' ); ?>" style="width: 100%;"><?php echo esc_textarea( $product_notice_top ); ?></textarea>
+			<h4><?php _e( 'Notice Text', 'cr-woocommerce-product-notice' );?></h4>
+			<p><em><?php _e( 'Enter the information that you wish to show up on the product page after the product title.', 'cr-woocommerce-product-notice' );?></em></p>
+			<textarea id="crwcpn_product_notice_top" class="input-textarea field-product-notice-top" name="crwcpn_product_notice_top" rows="5" cols="50" placeholder="<?php _e( 'Use of HTML is supported in this field', 'cr-woocommerce-product-notice' ); ?>" style="width: 100%;"><?php echo esc_textarea( $product_notice_top ); ?></textarea>
 		</div>
 		
 		<div>
-			<h4>Notice Appearance</h4>
-			<em>Choose color of product notice : </em>
+			<h4><?php _e( 'Notice Appearance' );?></h4>
+			<em><?php _e( 'Choose color of product notice : ');?></em>
 		    <select name="crwcpn_product_notice_color" id="crwcpn_product_notice_color">
-		    	<option value="default" <?php selected( $product_notice_color, 'default' ); ?>>Default</option>
-			  	<option value="blue" <?php selected( $product_notice_color, 'blue' ); ?>>Blue</option>
-				<option value="yellow" <?php selected( $product_notice_color, 'yellow' ); ?>>Yellow</option>
-		      	<option value="red" <?php selected( $product_notice_color, 'red' ); ?>>Red</option>
+		    	<option value="default" <?php selected( $product_notice_color, 'default' ); ?>><?php _e( 'Default', 'cr-woocommerce-product-notice' ); ?></option>
+			  	<option value="blue" <?php selected( $product_notice_color, 'blue' ); ?>><?php _e( 'Blue', 'cr-woocommerce-product-notice' ); ?></option>
+				<option value="yellow" <?php selected( $product_notice_color, 'yellow' ); ?>><?php _e( 'Yellow', 'cr-woocommerce-product-notice' ); ?></option>
+		      	<option value="red" <?php selected( $product_notice_color, 'red' ); ?>><?php _e( 'Red', 'cr-woocommerce-product-notice' ); ?></option>
 		    </select>
 		</div>
 		<?php
@@ -116,8 +116,6 @@ class CRWCPN_Custom_Fields {
 
 			update_post_meta( $post_id, '_crwcpn_product_notice_color', $product_notice_color );
 		}
-
-
 	}
 
 	//* Add product notice top to show up before the product description

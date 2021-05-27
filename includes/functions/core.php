@@ -21,7 +21,7 @@ function crwcpn_global_product_notice_top() {
 
 	$crwcpn_global_product_notice_color = get_option( 'wc_product_notice_color' );
 
-	if( 0 == $crwcpn_global_product_notice_option )
+	if ( 0 === $crwcpn_global_product_notice_option )
 	{
 	?>
 		<div id="crwcpn-global-notice">

@@ -11,7 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 class CRWCPN_Admin {
 
 	/** @var string sub-menu page hook suffix */
-	private $settings_tab_id = 'notice';
+	private $settings_tab_id = 'cr-woocommerce-product-notice';
 
 	public function __construct() {
 

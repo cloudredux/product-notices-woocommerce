@@ -48,23 +48,25 @@ class CRWCPN_Main {
 
 	}
 
+	//This function is used to check WooCommerce is active
 	public function is_woocommerce_active() {
 
-        $active_plugins = (array) get_option( 'active_plugins', array() );
-        if ( is_multisite() ) {
-            $active_plugins = array_merge( $active_plugins, get_site_option( 'active_sitewide_plugins', array() ) );
-        }
+		$active_plugins = (array) get_option( 'active_plugins', array() );
+		if ( is_multisite() ) {
+			$active_plugins = array_merge( $active_plugins, get_site_option( 'active_sitewide_plugins', array() ) );
+		}
 		return in_array( 'woocommerce/woocommerce.php', $active_plugins ) || array_key_exists( 'woocommerce/woocommerce.php', $active_plugins );
 		
-    }
+	}
 
+	//This function defines contants
 	public function define_constants() {
 
 		define( 'CRWCPN_SLUG', 'crwcpn-settings' );
 
 		define( 'CRWCPN_VER', '1.0.0' );
 
-		define( 'CRWCPN_PT_SLUG', 'notice' );
+		define( 'CRWCPN_PT_SLUG', 'cr-woocommerce-product-notice' );
 	}
 
 	private function includes() {
@@ -89,7 +91,8 @@ class CRWCPN_Main {
 		}
 
 	}
-
+	
+	//This function is used to show notice when WooCommerce is not installed
 	public function activation_notice() {
 
 		if ( ! $this->is_woocommerce_active() ) {
