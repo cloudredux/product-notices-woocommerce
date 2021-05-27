@@ -17,15 +17,15 @@ function crwcpn_global_product_notice_top() {
 
 	$crwcpn_global_product_notice_option = get_post_meta( $post->ID, '_crwcpn_global_product_notice_option', 1 );
 
-	$crwcpn_global_product_notice_top = get_option( 'wc_product_notice' );
+	$crwcpn_global_product_notice_text = get_option( 'crwpcn_global_product_notice' );
 
-	$crwcpn_global_product_notice_color = get_option( 'wc_product_notice_color' );
+	$crwcpn_global_product_notice_background_color = get_option( 'crwpcn_product_notice_background_color' );
 
-	if ( 0 === $crwcpn_global_product_notice_option )
+	if ( 0 == $crwcpn_global_product_notice_option )
 	{
 	?>
 		<div id="crwcpn-global-notice">
-			<div class="<?php echo $crwcpn_global_product_notice_color ?>"><?php echo wp_kses_post( $crwcpn_global_product_notice_top ); ?></div>
+			<div class="<?php echo $crwcpn_global_product_notice_background_color ?>"><?php echo wp_kses_post( $crwcpn_global_product_notice_text ); ?></div>
 		</div>
 	<?php
 	}

@@ -44,7 +44,7 @@ class CRWCPN_Main {
 		
 		$this->init_hooks();
 
-		add_action( 'admin_notices', array( $this, 'activation_notice' ) );
+		add_action( 'admin_notices', array( $this, 'crwcpn_wc_activation_notice' ) );
 
 	}
 
@@ -93,7 +93,7 @@ class CRWCPN_Main {
 	}
 	
 	//This function is used to show notice when WooCommerce is not installed
-	public function activation_notice() {
+	public function crwcpn_wc_activation_notice() {
 
 		if ( ! $this->is_woocommerce_active() ) {
 		?>
