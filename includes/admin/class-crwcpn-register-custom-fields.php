@@ -66,14 +66,14 @@ class CRWCPN_Custom_Fields {
 		<?php wp_nonce_field( 'crwcpn_product_notice_field', 'crwcpn_product_notice_field_nonce' );?>
 		
 		<div class="crwcpn-product-notice">
-			<h4><?php _e( 'Notice Text', 'cr-woocommerce-product-notice' );?></h4>
-			<p><em><?php _e( 'Enter the information that you wish to show up on the product page after the product title.', 'cr-woocommerce-product-notice' );?></em></p>
+			<h4><?php _e( 'Notice Text', 'cr-woocommerce-product-notice' ); ?></h4>
+			<p><em><?php _e( 'Enter the information that you wish to show up on the product page after the product title.', 'cr-woocommerce-product-notice' ); ?></em></p>
 			<textarea id="crwcpn_product_notice_top" class="crwcpn-input-textarea" name="crwcpn_product_notice_top" rows="5" cols="50" placeholder="<?php _e( 'Use of HTML is supported in this field', 'cr-woocommerce-product-notice' ); ?>" style="width: 100%;"><?php echo esc_textarea( $crwcpn_product_notice_text ); ?></textarea>
 		</div>
 		
 		<div>
-			<h4><?php _e( 'Notice Appearance' );?></h4>
-			<em><?php _e( 'Choose color of product notice : ');?></em>
+			<h4><?php _e( 'Notice Appearance', 'cr-woocommerce-product-notice' ); ?></h4>
+			<em><?php _e( 'Choose color of product notice : ', 'cr-woocommerce-product-notice'); ?></em>
 		    <select name="crwcpn_product_notice_color" id="crwcpn_product_notice_color">
 		    	<option value="default" <?php selected( $crwcpn_product_notice_color, 'default' ); ?>><?php _e( 'Default', 'cr-woocommerce-product-notice' ); ?></option>
 			  	<option value="blue" <?php selected( $crwcpn_product_notice_color, 'blue' ); ?>><?php _e( 'Blue', 'cr-woocommerce-product-notice' ); ?></option>
