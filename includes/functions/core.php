@@ -25,7 +25,7 @@ function crwcpn_global_product_notice_top() {
 	{
 	?>
 		<div id="crwcpn-global-notice">
-			<div class="<?php echo $crwcpn_global_product_notice_background_color ?>"><?php echo wp_kses_post( $crwcpn_global_product_notice_text ); ?></div>
+			<div class="<?php echo ( $crwcpn_global_product_notice_background_color ); ?>"><?php echo wp_kses_post( $crwcpn_global_product_notice_text ); ?></div>
 		</div>
 	<?php
 	}

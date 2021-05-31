@@ -46,6 +46,8 @@ class CRWCPN_Main {
 
 		add_action( 'admin_notices', array( $this, 'crwcpn_wc_activation_notice' ) );
 
+		add_filter( 'plugin_action_links_' . plugin_basename(__FILE__), array( $this, 'crwcpn_settings_link' ) );
+
 	}
 
 	//This function is used to check WooCommerce is active
@@ -59,6 +61,16 @@ class CRWCPN_Main {
 		
 	}
 
+	public function crwcpn_settings_link( array $links ) {
+
+		$url = 'admin.php?page=wc-settings&tab='.CRWCPN_AS_SLUG;
+		$settings_link = '<a href="' . $url . '">' . __('Settings', 'cr-woocommerce-product-notice') . '</a>';
+		$links[] = $settings_link;
+
+		return $links;
+
+    }
+
 	//This function defines contants
 	public function define_constants() {
 
@@ -66,7 +78,7 @@ class CRWCPN_Main {
 
 		define( 'CRWCPN_VER', '1.0.0' );
 
-		define( 'CRWCPN_PT_SLUG', 'cr-woocommerce-product-notice' );
+		define( 'CRWCPN_AS_SLUG', 'cr-woocommerce-product-notice' );
 	}
 
 	private function includes() {

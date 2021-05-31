@@ -1,7 +1,6 @@
 === WooCommerce Product Notice ===
-Contributors: user, user, user
-Tags: WooCommerce, WooCommerce Plugin, Product notice, WooCommerce Product notice, Product alert
-Donate link: http://example.com/
+Contributors: https://profiles.wordpress.org/cloudredux/
+Tags: woocommerce, woocommerce plugin, product notice, woocommerce product notice, product alert
 Requires at least: 5.0
 Tested up to: 5.7
 Requires PHP: 7.2
@@ -43,10 +42,6 @@ Answer to foo bar dilemma.
 
 = 0.1 =
 * Initial release.
-
-== Upgrade Notice ==
-= 0.2 =
-Upgrade notices describe the reason a user should upgrade
 
 = 0.1 =
 This version fixes a security related bug. Upgrade immediately.

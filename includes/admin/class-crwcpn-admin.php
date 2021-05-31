@@ -11,7 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 class CRWCPN_Admin {
 
 	/** @var string sub-menu page hook suffix */
-	private $settings_tab_id = 'cr-woocommerce-product-notice';
+	private $settings_tab_id = CRWCPN_AS_SLUG;
 
 	public function __construct() {
 
@@ -78,21 +78,20 @@ class CRWCPN_Admin {
 				'type'     => 'textarea',
 				'class'    => 'regular-text',
 			),
-
-			
+	
 			array(
 				'id'      => 'crwpcn_product_notice_background_color',
-			    'name'    => __( 'Notice Color', 'cr-woocommerce-product-notice' ),
-			    'desc'    => __( 'This is used to add color to product notice background', 'cr-woocommerce-product-notice' ),
-			    'type'    => 'select',
-			    'class'   => 'regular-text',
-			    'options' => array(
-			      	'default'        => __( 'Default', 'woocommerce' ),
-			      	'blue'       => __( 'Blue', 'woocommerce' ),
-			      	'yellow'  => __( 'Yellow', 'woocommerce' ),
-			      	'red' => __( 'Red', 'woocommerce' )
-			    ),
-			    'desc_tip' =>  true,
+				'name'    => __( 'Notice Color', 'cr-woocommerce-product-notice' ),
+				'desc'    => __( 'This is used to add color to product notice background', 'cr-woocommerce-product-notice' ),
+				'type'    => 'select',
+				'class'   => 'regular-text',
+				'options' => array(
+					'default' => __( 'Default', 'cr-woocommerce-product-notice' ),
+					'blue'       => __( 'Blue', 'cr-woocommerce-product-notice' ),
+					'yellow'  => __( 'Yellow', 'cr-woocommerce-product-notice' ),
+					'red' => __( 'Red', 'cr-woocommerce-product-notice' )
+				),
+				'desc_tip' =>  true,
 			),
 
 			array( 'type' => 'sectionend' ),
