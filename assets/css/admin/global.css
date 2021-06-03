@@ -1,60 +1,34 @@
 /**
 * Stylesheet to add global styles specific to Product Notice
 */
-#crwcpn-global-notice .default {
+.crwcpn-notice,
+.crwcpn-notice.default {
 	background-color: #f8f8f8;
 	border: 1px solid #ddd;
-	padding: 5px;
-	margin-bottom: 5px;
+	padding: 1em;
+	margin: 1em 0;
 }
 
-#crwcpn-global-notice .red {
-	background-color: #fef4f6;
-	color: #f0506e;
-	padding: 5px;
-	margin-bottom: 5px;
+.crwcpn-notice.red {
+	background-color: #FCEDEA;
+	border: 1px solid #F5C5BB;
+	color: inherit;
 }
 
-#crwcpn-global-notice .blue {
-	background-color: #d8eafc;
-	color: #1e87f0;
-	padding: 5px;
-	margin-bottom: 5px;
+.crwcpn-notice.blue {
+	background-color: #E5EFFA;
+	border: 1px solid AACCF0;
+	color: inherit;
 }
 
-#crwcpn-global-notice .yellow {
-	color: #856404;
-	background-color: #fff3cd;
-	border-color: #ffeeba;
-	padding: 5px;
-	margin-bottom: 5px;
+.crwcpn-notice.yellow {
+	background-color: #FEF7EA;
+	border: 1px solid #FADEAF;
+	color: inherit;
 }
 
-#crwcpn-individual-product-notice .default {
-	background-color: #f8f8f8;
-	border: 1px solid #ddd;
-	padding: 5px;
-	margin-bottom: 5px;
-}
-
-#crwcpn-individual-product-notice .red {
-	background-color: #fef4f6;
-	color: #f0506e;
-	padding: 5px;
-	margin-bottom: 5px;
-}
-
-#crwcpn-individual-product-notice .blue {
-	background-color: #d8eafc;
-	color: #1e87f0;
-	padding: 5px;
-	margin-bottom: 5px;
-}
-
-#crwcpn-individual-product-notice .yellow {
-	color: #856404;
-	background-color: #fff3cd;
-	border-color: #ffeeba;
-	padding: 5px;
-	margin-bottom: 5px;
+.crwcpn-notice.green {
+	background-color: #EBF7EE;
+	border: 1px solid #BEE5C8;
+	color: inherit;
 }

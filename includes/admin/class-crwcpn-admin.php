@@ -27,6 +27,8 @@ class CRWCPN_Admin {
 
 	/**
 	 * Add tab to WooCommerce Settings tabs
+	 *
+	 * @since 1.0
 	 */
 	public function add_settings_tab( $settings_tabs ) {
 
@@ -67,7 +69,7 @@ class CRWCPN_Admin {
 		return array(
 
 			array(
-				'name' => __( 'Product Notice - Global Settings', 'cr-woocommerce-product-notice' ),
+				'name' => __( 'Product Notice &ndash; Global Settings', 'cr-woocommerce-product-notice' ),
 				'type' => 'title'
 			),
 
@@ -85,12 +87,7 @@ class CRWCPN_Admin {
 				'desc'    => __( 'This is used to add color to product notice background', 'cr-woocommerce-product-notice' ),
 				'type'    => 'select',
 				'class'   => 'regular-text',
-				'options' => array(
-					'default' => __( 'Default', 'cr-woocommerce-product-notice' ),
-					'blue'       => __( 'Blue', 'cr-woocommerce-product-notice' ),
-					'yellow'  => __( 'Yellow', 'cr-woocommerce-product-notice' ),
-					'red' => __( 'Red', 'cr-woocommerce-product-notice' )
-				),
+				'options' => crwcpn_get_notice_colors(),
 				'desc_tip' =>  true,
 			),
 

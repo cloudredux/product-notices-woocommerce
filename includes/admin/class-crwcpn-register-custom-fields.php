@@ -16,55 +16,68 @@ class CRWCPN_Custom_Fields {
 
 		add_action( 'save_post', array( $this, 'save' ) );
 
-		add_action( 'woocommerce_single_product_summary', array( $this, 'crwcpn_product_notice_top' ) );
-
 		add_action( 'wp_enqueue_scripts', array( $this, 'load_assets' ), 20 );
 
 	}
 
+	/**
+	 * Add metabox to Product page
+	 *
+	 * @since 1.0
+	 */
 	public function meta_boxes() {
 
-		add_meta_box( 'crwcpn-product-notice', __( 'Product Notice / Information', 'cr-woocommerce-product-notice' ), array( $this, 'cr_product_notice_mb' ), 'product', 'normal', 'high' );
+		add_meta_box( 'crwcpn-product-notice', __( 'Product Notice/Information', 'cr-woocommerce-product-notice' ), array( $this, 'cr_product_notice_mb' ), 'product', 'normal', 'high' );
 
 		add_meta_box( 'crwcpn-product-notice-global', __( 'Global Notice', 'cr-woocommerce-global-product-notice' ), array( $this, 'cr_global_product_notice_mb' ), 'product', 'side' );
 
 	}
 
+	/**
+	 * Show checkbox on product editor to disable global notice
+	 *
+	 * @since 1.0
+	 */
 	public function cr_global_product_notice_mb( $post ) {
 
-		$crwcpn_global_product_notice_option = false;
+		$crwcpn_hide_global_notice = get_post_meta( $post->ID, 'crwcpn_hide_global_notice', true );
 
-		$crwcpn_global_product_notice_option = get_post_meta( $post->ID, '_crwcpn_global_product_notice_option', 1 );
+		$crwcpn_hide_global_notice = empty( $crwcpn_hide_global_notice ) ? false : $crwcpn_hide_global_notice;
 
+		wp_nonce_field( 'crwcpn_product_notice_field', 'crwcpn_product_notice_field_nonce' );
+		
 		?>
-
-		<?php wp_nonce_field( 'crwcpn_product_notice_field', 'crwcpn_product_notice_field_nonce' );?>
-
 		<div>
 			<p>
-				<label for="crwcpn_global_product_notice_option">
-					<input id="crwcpn_global_product_notice_option" class="crwcpn-input input-checkbox" name="crwcpn_global_product_notice_option" value="1" <?php checked( $crwcpn_global_product_notice_option, true ); ?> type="checkbox"><?php _e( 'Disable global notice for this product', 'cr-woocommerce-product-notice' ); ?>
+				<label for="crwcpn_hide_global_notice">
+					<input id="crwcpn_hide_global_notice" class="crwcpn-input input-checkbox" name="crwcpn_hide_global_notice" value="1" <?php checked( $crwcpn_hide_global_notice, true ); ?> type="checkbox"><?php _e( 'Disable global notice for this product', 'cr-woocommerce-product-notice' ); ?>
 				</label>
 			</p>					
 		</div>
-		
 		<?php
 	}
 
+	/**
+	 * Product notice textarea and color metabox
+	 *
+	 * @since 1.0
+	 */
 	public function cr_product_notice_mb( $post ) {
 
-		$crwcpn_product_notice_text = get_post_meta( $post->ID, '_crwcpn_product_notice_top', 1 );
+		$crwcpn_product_notice_text = get_post_meta( $post->ID, 'crwcpn_product_notice', 1 );
 
-		$crwcpn_product_notice_color = get_post_meta($post->ID, '_crwcpn_product_notice_color', true);
+		$crwcpn_product_notice_color = get_post_meta($post->ID, 'crwpcn_single_product_notice_background_color', true);
 
 		if ( empty( $crwcpn_product_notice_text ) ) {
 
 			$crwcpn_product_notice_text = '';
 		}
-		?>
-
-		<?php wp_nonce_field( 'crwcpn_product_notice_field', 'crwcpn_product_notice_field_nonce' );?>
 		
+		wp_nonce_field( 'crwcpn_product_notice_field', 'crwcpn_product_notice_field_nonce' );
+
+		$color_options = crwcpn_get_notice_colors();
+
+		?>
 		<div class="crwcpn-product-notice">
 			<h4><?php _e( 'Notice Text', 'cr-woocommerce-product-notice' ); ?></h4>
 			<p><em><?php _e( 'Enter the information that you wish to show up on the product page after the product title.', 'cr-woocommerce-product-notice' ); ?></em></p>
@@ -73,17 +86,21 @@ class CRWCPN_Custom_Fields {
 		
 		<div>
 			<h4><?php _e( 'Notice Appearance', 'cr-woocommerce-product-notice' ); ?></h4>
-			<em><?php _e( 'Choose color of product notice : ', 'cr-woocommerce-product-notice'); ?></em>
-		    <select name="crwcpn_product_notice_color" id="crwcpn_product_notice_color">
-		    	<option value="default" <?php selected( $crwcpn_product_notice_color, 'default' ); ?>><?php _e( 'Default', 'cr-woocommerce-product-notice' ); ?></option>
-			  	<option value="blue" <?php selected( $crwcpn_product_notice_color, 'blue' ); ?>><?php _e( 'Blue', 'cr-woocommerce-product-notice' ); ?></option>
-				<option value="yellow" <?php selected( $crwcpn_product_notice_color, 'yellow' ); ?>><?php _e( 'Yellow', 'cr-woocommerce-product-notice' ); ?></option>
-		      	<option value="red" <?php selected( $crwcpn_product_notice_color, 'red' ); ?>><?php _e( 'Red', 'cr-woocommerce-product-notice' ); ?></option>
-		    </select>
+			<label for="crwcpn_product_notice_color"><em><?php _e( 'Choose color of product notice:', 'cr-woocommerce-product-notice'); ?></em></label><br>
+			<select name="crwcpn_product_notice_color" id="crwcpn_product_notice_color">
+				<?php foreach( $color_options as $value => $label ) : ?>
+					<option value="<?php echo esc_attr( $value ); ?>" <?php selected( $crwcpn_product_notice_color, $value ); ?>><?php echo esc_html( $label ); ?></option>
+				<?php endforeach; ?>
+			</select>
 		</div>
 		<?php
 	}
 	
+	/**
+	 * Save post meta information
+	 *
+	 * @since 1.0
+	 */
 	public function save( $post_id ) {
 
 		// If this is an autosave, our form has not been submitted, so we don't want to do anything.
@@ -98,43 +115,31 @@ class CRWCPN_Custom_Fields {
 
 		if ( isset( $_POST['crwcpn_product_notice_field_nonce'] ) && wp_verify_nonce( $_POST['crwcpn_product_notice_field_nonce'], 'crwcpn_product_notice_field' ) ) {
 	
-			$crwcpn_global_product_notice_display = ! empty( $_POST['crwcpn_global_product_notice_option'] ) ? wp_kses_post( $_POST['crwcpn_global_product_notice_option'] ) : '';
+			$crwcpn_hide_global_notice = ! empty( $_POST['crwcpn_hide_global_notice'] ) ? true : false;
 
-			update_post_meta( $post_id, '_crwcpn_global_product_notice_option', $crwcpn_global_product_notice_display );
+			update_post_meta( $post_id, 'crwcpn_hide_global_notice', $crwcpn_hide_global_notice );
 		}
 		
 		if ( isset( $_POST['crwcpn_product_notice_field_nonce'] ) && wp_verify_nonce( $_POST['crwcpn_product_notice_field_nonce'], 'crwcpn_product_notice_field' ) ) {
 	
-			$crwcpn_product_notice_top = ! empty( $_POST['crwcpn_product_notice_top'] ) ? wp_kses_post( $_POST['crwcpn_product_notice_top'] ) : '';
+			$crwcpn_product_notice = ! empty( $_POST['crwcpn_product_notice_top'] ) ? wp_kses_post( $_POST['crwcpn_product_notice_top'] ) : '';
 
-			update_post_meta( $post_id, '_crwcpn_product_notice_top', $crwcpn_product_notice_top );
+			update_post_meta( $post_id, 'crwcpn_product_notice', $crwcpn_product_notice );
 		}
 
 		if ( isset( $_POST['crwcpn_product_notice_field_nonce'] ) && wp_verify_nonce( $_POST['crwcpn_product_notice_field_nonce'], 'crwcpn_product_notice_field' ) ) {
 	
-			$crwcpn_product_notice_color = ! empty( $_POST['crwcpn_product_notice_color'] ) ? wp_kses_post( $_POST['crwcpn_product_notice_color'] ) : '';
+			$crwcpn_product_notice_color = ! empty( $_POST['crwcpn_product_notice_color'] ) ? sanitize_html_class( $_POST['crwcpn_product_notice_color'] ) : '';
 
-			update_post_meta( $post_id, '_crwcpn_product_notice_color', $crwcpn_product_notice_color );
+			update_post_meta( $post_id, 'crwpcn_single_product_notice_background_color', $crwcpn_product_notice_color );
 		}
 	}
 
-	//* Add product notice top to show up before the product description
-
-	function crwcpn_product_notice_top() {
-
-		$crwcpn_product_notice_text_display = get_post_meta( get_the_ID(), '_crwcpn_product_notice_top', 1 );
-
-		$crwcpn_product_notice_background_color = get_post_meta( get_the_ID(), '_crwcpn_product_notice_color', true);
-
-		if ( ! empty( $crwcpn_product_notice_text_display ) ) {
-		?>
-			<div id="crwcpn-individual-product-notice">
-				<p class="<?php echo $crwcpn_product_notice_background_color ?>"><?php echo wp_kses_post( $crwcpn_product_notice_text_display );?></p>
-			</div>
-		<?php	
-		}
-	}
-
+	/**
+	 * Load assest used for the plugin
+	 *
+	 * @since 1.0
+	 */
 	public function load_assets( ) {
 
 		wp_enqueue_style( 'cr-product-notice-styles', crwcpn()->plugin_url() . '/assets/css/admin/global.css' );

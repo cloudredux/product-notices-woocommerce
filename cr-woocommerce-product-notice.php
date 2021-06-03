@@ -50,17 +50,32 @@ class CRWCPN_Main {
 
 	}
 
-	//This function is used to check WooCommerce is active
+	/**
+	 * Checks if WooCommerce is installed and active.
+	 * 
+	 * @since 1.0.0
+	 */
 	public function is_woocommerce_active() {
 
 		$active_plugins = (array) get_option( 'active_plugins', array() );
+
 		if ( is_multisite() ) {
 			$active_plugins = array_merge( $active_plugins, get_site_option( 'active_sitewide_plugins', array() ) );
 		}
+
 		return in_array( 'woocommerce/woocommerce.php', $active_plugins ) || array_key_exists( 'woocommerce/woocommerce.php', $active_plugins );
 		
 	}
 
+	/**
+	 * Generates plugin action link for settings page.
+	 * 
+	 * @since 1.0.0
+	 * 
+	 * @param array $links Array of default plugin action link
+	 * 
+	 * @return array $links New array of plugin action link
+	 */
 	public function crwcpn_settings_link( array $links ) {
 
 		$url = 'admin.php?page=wc-settings&tab='.CRWCPN_AS_SLUG;
@@ -71,7 +86,11 @@ class CRWCPN_Main {
 
     }
 
-	//This function defines contants
+	/**
+	 * Defines constants.
+	 * 
+	 * @since 1.0.0
+	 */
 	public function define_constants() {
 
 		define( 'CRWCPN_SLUG', 'crwcpn-settings' );
@@ -104,12 +123,16 @@ class CRWCPN_Main {
 
 	}
 	
-	//This function is used to show notice when WooCommerce is not installed
+	/**
+	 * Checks if WooCommerce is active if not then shows WooCommerce is not installed.
+	 * 
+	 * @since 1.0.0
+	 */
 	public function crwcpn_wc_activation_notice() {
 
 		if ( ! $this->is_woocommerce_active() ) {
 		?>
-			<div class="error"><p><strong><?php printf( __( 'Product Notice requires WooCommerce to be installed and active. You can download <a href="%s" target="_blank">WooCommerce</a> here.', 'cr-woocommerce-product-notice' ), 'https://woocommerce.com/' );?></strong></p></div>
+			<div class="error"><p><strong><?php printf( __( 'Product Notice requires WooCommerce to be installed and active. You can download <a href="%s" target="_blank">WooCommerce</a> here.', 'cr-woocommerce-product-notice' ), esc_url( 'https://woocommerce.com/' ) ); ?></strong></p></div>
 		<?php
 		}
 	}
@@ -129,7 +152,6 @@ class CRWCPN_Main {
 	 *
 	 * @return string
 	 */
-	
 	public function plugin_path(){
 
 		return untrailingslashit( plugin_dir_path( __FILE__ ) );
