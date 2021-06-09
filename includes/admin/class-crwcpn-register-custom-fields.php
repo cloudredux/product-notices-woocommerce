@@ -122,7 +122,7 @@ class CRWCPN_Custom_Fields {
 		
 		if ( isset( $_POST['crwcpn_product_notice_field_nonce'] ) && wp_verify_nonce( $_POST['crwcpn_product_notice_field_nonce'], 'crwcpn_product_notice_field' ) ) {
 	
-			$crwcpn_product_notice = ! empty( $_POST['crwcpn_product_notice_top'] ) ? wp_kses_post( $_POST['crwcpn_product_notice_top'] ) : '';
+			$crwcpn_product_notice = ! empty( $_POST['crwcpn_product_notice_top'] ) ? wp_filter_post_kses( do_shortcode( $_POST['crwcpn_product_notice_top'] ) ) : '';
 
 			update_post_meta( $post_id, 'crwcpn_product_notice', $crwcpn_product_notice );
 		}
