@@ -20,7 +20,7 @@ function crwcpn_get_notice_colors() {
 
 //* Add global product notice top to show up before the product description
 
-add_action( 'woocommerce_single_product_summary', 'crwcpn_global_product_notice_top' );
+add_action( 'woocommerce_single_product_summary', 'crwcpn_global_product_notice_top', 12 );
 
 function crwcpn_global_product_notice_top() {
 
@@ -41,7 +41,7 @@ function crwcpn_global_product_notice_top() {
 
 //* Add product notice top to show up before the product description
 
-add_action( 'woocommerce_single_product_summary', 'crwcpn_product_notice_top' );
+add_action( 'woocommerce_single_product_summary', 'crwcpn_product_notice_top', 12 );
 
 function crwcpn_product_notice_top() {
 

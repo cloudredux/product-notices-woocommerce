@@ -1,7 +1,7 @@
 <?php
 /**
  *
- *	Plugin Name: WooCommerce Product Notice
+ *	Plugin Name: Product Notices for WooCommerce
  *	Plugin URI: https://cloudredux.com
  *	Description: This plugin is used to show Product Notices on WooCommerce products.
  *	Version: 1.0.0
@@ -79,7 +79,7 @@ class CRWCPN_Main {
 	public function crwcpn_settings_link( array $links ) {
 
 		$url = 'admin.php?page=wc-settings&tab='.CRWCPN_AS_SLUG;
-		$settings_link = '<a href="' . $url . '">' . __('Settings', 'cr-woocommerce-product-notice') . '</a>';
+		$settings_link = '<a href="' . $url . '">' . __('Settings', 'product-notices-woocommerce') . '</a>';
 		$links[] = $settings_link;
 
 		return $links;
@@ -97,7 +97,7 @@ class CRWCPN_Main {
 
 		define( 'CRWCPN_VER', '1.0.0' );
 
-		define( 'CRWCPN_AS_SLUG', 'cr-woocommerce-product-notice' );
+		define( 'CRWCPN_AS_SLUG', 'product-notices-woocommerce' );
 	}
 
 	private function includes() {
@@ -132,7 +132,7 @@ class CRWCPN_Main {
 
 		if ( ! $this->is_woocommerce_active() ) {
 		?>
-			<div class="error"><p><strong><?php printf( __( 'Product Notice requires WooCommerce to be installed and active. You can download <a href="%s" target="_blank">WooCommerce</a> here.', 'cr-woocommerce-product-notice' ), esc_url( 'https://woocommerce.com/' ) ); ?></strong></p></div>
+			<div class="error"><p><strong><?php printf( __( 'Product Notice requires WooCommerce to be installed and active. You can download <a href="%s" target="_blank">WooCommerce</a> here.', 'product-notices-woocommerce' ), esc_url( 'https://woocommerce.com/' ) ); ?></strong></p></div>
 		<?php
 		}
 	}

@@ -25,7 +25,19 @@ You can also set the individual product notice by editing the product page and a
 
 == Frequently Asked Questions ==
 = A question that someone might have =
-An answer to that question.
+How to set global notice?
+You can go into the WooCommerce setting and get the Product Notice tab where you can put your text for global notice and set the background color for notice from dropdown below it
+
+How to set product notice?
+You can set Product notice by editing the individual page where you will get an product notice textarea which will be used to insert product notice
+
+Can we add custom CSS to the notice?
+
+Can we use HTML in notice text?
+yes you can use standard HTML tags
+
+Can I disable global notice on per product?
+Yes you can disable it using the checkbox on the product edit screen which will disable the global notice for that particular product
 
 = What about foo bar? =
 Answer to foo bar dilemma.

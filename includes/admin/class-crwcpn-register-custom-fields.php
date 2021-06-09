@@ -50,7 +50,7 @@ class CRWCPN_Custom_Fields {
 		<div>
 			<p>
 				<label for="crwcpn_hide_global_notice">
-					<input id="crwcpn_hide_global_notice" class="crwcpn-input input-checkbox" name="crwcpn_hide_global_notice" value="1" <?php checked( $crwcpn_hide_global_notice, true ); ?> type="checkbox"><?php _e( 'Disable global notice for this product', 'cr-woocommerce-product-notice' ); ?>
+					<input id="crwcpn_hide_global_notice" class="crwcpn-input input-checkbox" name="crwcpn_hide_global_notice" value="1" <?php checked( $crwcpn_hide_global_notice, true ); ?> type="checkbox"><?php _e( 'Disable global notice for this product', 'product-notices-woocommerce' ); ?>
 				</label>
 			</p>					
 		</div>
@@ -79,14 +79,14 @@ class CRWCPN_Custom_Fields {
 
 		?>
 		<div class="crwcpn-product-notice">
-			<h4><?php _e( 'Notice Text', 'cr-woocommerce-product-notice' ); ?></h4>
-			<p><em><?php _e( 'Enter the information that you wish to show up on the product page after the product title.', 'cr-woocommerce-product-notice' ); ?></em></p>
-			<textarea id="crwcpn_product_notice_top" class="crwcpn-input-textarea" name="crwcpn_product_notice_top" rows="5" cols="50" placeholder="<?php _e( 'Use of HTML is supported in this field', 'cr-woocommerce-product-notice' ); ?>" style="width: 100%;"><?php echo esc_textarea( $crwcpn_product_notice_text ); ?></textarea>
+			<h4><?php _e( 'Notice Text', 'product-notices-woocommerce' ); ?></h4>
+			<p><em><?php _e( 'Enter the information that you wish to show up on the product page after the product title.', 'product-notices-woocommerce' ); ?></em></p>
+			<textarea id="crwcpn_product_notice_top" class="crwcpn-input-textarea" name="crwcpn_product_notice_top" rows="5" cols="50" placeholder="<?php _e( 'Use of HTML is supported in this field', 'product-notices-woocommerce' ); ?>" style="width: 100%;"><?php echo esc_textarea( $crwcpn_product_notice_text ); ?></textarea>
 		</div>
 		
 		<div>
-			<h4><?php _e( 'Notice Appearance', 'cr-woocommerce-product-notice' ); ?></h4>
-			<label for="crwcpn_product_notice_color"><em><?php _e( 'Choose color of product notice:', 'cr-woocommerce-product-notice'); ?></em></label><br>
+			<h4><?php _e( 'Notice Appearance', 'product-notices-woocommerce' ); ?></h4>
+			<label for="crwcpn_product_notice_color"><em><?php _e( 'Choose color of product notice:', 'product-notices-woocommerce'); ?></em></label><br>
 			<select name="crwcpn_product_notice_color" id="crwcpn_product_notice_color">
 				<?php foreach( $color_options as $value => $label ) : ?>
 					<option value="<?php echo esc_attr( $value ); ?>" <?php selected( $crwcpn_product_notice_color, $value ); ?>><?php echo esc_html( $label ); ?></option>

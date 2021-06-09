@@ -32,7 +32,7 @@ class CRWCPN_Admin {
 	 */
 	public function add_settings_tab( $settings_tabs ) {
 
-		$settings_tabs[ $this->settings_tab_id ] = __( 'Product Notice', 'cr-woocommerce-product-notice' );
+		$settings_tabs[ $this->settings_tab_id ] = __( 'Product Notice', 'product-notices-woocommerce' );
 
 		return $settings_tabs;
 	}
@@ -69,22 +69,22 @@ class CRWCPN_Admin {
 		return array(
 
 			array(
-				'name' => __( 'Product Notice &ndash; Global Settings', 'cr-woocommerce-product-notice' ),
+				'name' => __( 'Product Notice &ndash; Global Settings', 'product-notices-woocommerce' ),
 				'type' => 'title'
 			),
 
 			array(
 				'id'       => 'crwpcn_global_product_notice',
-				'name'     => __( 'Global Product Notice', 'cr-woocommerce-product-notice' ),
-				'desc_tip' => __( 'This will be displayed on all product pages', 'cr-woocommerce-product-notice' ),
+				'name'     => __( 'Global Product Notice', 'product-notices-woocommerce' ),
+				'desc_tip' => __( 'This will be displayed on all product pages', 'product-notices-woocommerce' ),
 				'type'     => 'textarea',
 				'class'    => 'regular-text',
 			),
 	
 			array(
 				'id'      => 'crwpcn_product_notice_background_color',
-				'name'    => __( 'Notice Color', 'cr-woocommerce-product-notice' ),
-				'desc'    => __( 'This is used to add color to product notice background', 'cr-woocommerce-product-notice' ),
+				'name'    => __( 'Notice Appearance', 'product-notices-woocommerce' ),
+				'desc'    => __( 'This is used to add color to product notice background', 'product-notices-woocommerce' ),
 				'type'    => 'select',
 				'class'   => 'regular-text',
 				'options' => crwcpn_get_notice_colors(),
