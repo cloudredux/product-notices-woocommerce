@@ -33,7 +33,7 @@ function crwcpn_global_product_notice_top() {
 	if ( ! $crwcpn_hide_global_notice ) {
 	?>
 		<div class="crwcpn-notice crwcpn-global-notice <?php echo ( $crwcpn_global_product_notice_background_color ); ?>">
-			<?php echo wp_kses_post( $crwcpn_global_product_notice_text ); ?>
+			<?php echo wp_kses_post( do_shortcode( $crwcpn_global_product_notice_text ) ); ?>
 		</div>
 	<?php
 	}
@@ -52,7 +52,7 @@ function crwcpn_product_notice_top() {
 	if ( ! empty( $crwcpn_single_product_notice_text ) ) {
 	?>
 		<div class="crwcpn-notice crwcpn-product-notice <?php echo esc_attr( $crwpcn_single_product_notice_background_color); ?>">
-			<?php echo wp_kses_post( $crwcpn_single_product_notice_text ); ?>
+			<?php echo wp_kses_post( do_shortcode( $crwcpn_single_product_notice_text ) ); ?>
 		</div>
 	<?php	
 	}
