@@ -1,51 +1,49 @@
-=== WooCommerce Product Notice ===
+=== Product Notices for WooCommerce ===
 Contributors: https://profiles.wordpress.org/cloudredux/
 Tags: woocommerce, woocommerce plugin, product notice, woocommerce product notice, product alert
-Requires at least: 5.0
-Tested up to: 5.7
+Requires at least: 5.2
+Tested up to: 5.7.2
 Requires PHP: 7.2
 Stable tag: 1.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-This plugin is used to show Product Notices on WooCommerce products.
+Make the best of product announcements, promos, discounts, alerts, etc. on your eCommerce site with this one of its kind WooCommerce extension.
 
 == Description ==
-This plugin is used to show Product Notices on WooCommerce products.
+Better showcase and display notices on your WooCommerce store
 
-Using this plugin you can set the Global Product Notice from WooCommerce setting tab and the notice will be displayed on all the products.
+Ever wanted to show notifications, alerts, announcements or general notices on the product pages of your website? Product Notices for WooCommerce makes it a breeze for you!
 
-You can also set the individual product notice by editing the product page and add the notice text which will be displayed on that particular product as well as you get and option to disable the global notice for that particular product.
+Now, make your notices on your eCommerce websites stand out more than ever! With the new Product Notices for WooCommerce plugin, highlight the most important announcements or showcase discounts on all or on any product page.
+
+With its two customization options — Global Notices, Per- Product Notices
+
 
 == Installation ==
-1. Upload WooCommerce Product Notice to the \"/wp-content/plugins/\" directory.
-1. Activate the plugin through the \"Plugins\" menu in WordPress.
-1. Go to WooCommerce settings and you will see an Notice tab which will give option to add global notice which will be shown on all the product.
-1. You can also set notice on individual product page by editing the particular product page as well as can disable the global notice for that particular page.
+Log in to your WordPress dashboard, navigate to the Plugins menu and click Add New. In the search field type “Product Notices for WooCommerce” and click Search Plugins. Once you’ve found the plugin you can install it by simply clicking “Install Now”.
+
+Or you can follow the steps given below:
+
+Upload the entire product-notices-woocommerce folder to the /wp-content/plugins/ directory.
+DO NOT change the name of the product-notices-woocommerce folder.
+Activate the plugin through the ‘Plugins’ menu in WordPress.
+Once activated, visit the Product Notices for WooCommercetab under WooCommerce > Settings.
+Set up the plugin options as required.
+
 
 == Frequently Asked Questions ==
-= A question that someone might have =
 How to set global notice?
-You can go into the WooCommerce setting and get the Product Notice tab where you can put your text for global notice and set the background color for notice from dropdown below it
+In order to set up a Global Notice for the products on your store, navigate to the Settings menu under WooCommerce on the WordPress Dashboard. Click on the Product Notice tab and use the settings field to set up the product notice that you intend to show on all the products in the store.
 
 How to set product notice?
-You can set Product notice by editing the individual page where you will get an product notice textarea which will be used to insert product notice
-
-Can we add custom CSS to the notice?
+Head to the Edit Product screen for a product and look for the Product Notice/Information meta box and add the desired content in the Notice Text field. Choose from a set of default appearance styles to set up how your notice shows up on the page using the Notice Appearance dropdown.
 
 Can we use HTML in notice text?
-yes you can use standard HTML tags
+Yes you can use standard HTML tags
 
 Can I disable global notice on per product?
-Yes you can disable it using the checkbox on the product edit screen which will disable the global notice for that particular product
-
-= What about foo bar? =
-Answer to foo bar dilemma.
-
-== Screenshots ==
-1. The screenshot description corresponds to screenshot-1.(png|jpg|jpeg|gif).
-2. The screenshot description corresponds to screenshot-2.(png|jpg|jpeg|gif).
-3. The screenshot description corresponds to screenshot-3.(png|jpg|jpeg|gif).
+If you want some of the product pages on your store without any global notice which you have put up, just head towards any product page. There, you will find the option to disable the global notice. Check/Uncheck the box to disable the view. It’s as simple as that!
 
 == Changelog ==
 = 0.2 =
