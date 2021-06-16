@@ -24,29 +24,32 @@ Log in to your __WordPress dashboard__, navigate to the __Plugins menu__ and cli
 
 Or you can follow the steps given below:
 
-Upload the entire product-notices-woocommerce folder to the /wp-content/plugins/ directory.
-DO NOT change the name of the product-notices-woocommerce folder.
-Activate the plugin through the ‘Plugins’ menu in WordPress.
-Once activated, visit the Product Notices for WooCommercetab under WooCommerce > Settings.
-Set up the plugin options as required.
+1. Upload the entire `product-notices-woocommerce folder` to the `/wp-content/plugins/` directory.
+1. DO NOT change the name of the `product-notices-woocommerce` folder.
+1. Activate the plugin through the 'Plugins' menu in WordPress.
+1. Once activated, visit the **Product Notices** tab under WooCommerce > Settings.
+1. Set up the plugin options as required.
+1. Save the changes.
 
 == Frequently Asked Questions ==
-How to set global notice?
+= How to set global notice? =
 In order to set up a Global Notice for the products on your store, navigate to the Settings menu under WooCommerce on the WordPress Dashboard. Click on the Product Notice tab and use the settings field to set up the product notice that you intend to show on all the products in the store.
 
-How to set product notice?
+= How to set product notice? =
 Head to the Edit Product screen for a product and look for the Product Notice/Information meta box and add the desired content in the Notice Text field. Choose from a set of default appearance styles to set up how your notice shows up on the page using the Notice Appearance dropdown.
 
-Can I disable global notice on per product?
+= Can I disable global notice on per product? =
 If you want some of the product pages on your store without any global notice which you have put up, just head towards any product page. There, you will find the option to disable the global notice. Check/Uncheck the box to disable the view. It’s as simple as that!
 
-Can we use HTML in notice text?
+= Can we use HTML in notice text? =
 Yes you can use standard HTML tags
 
 == Screenshots ==
-1. a
-2. b
-3. c
+1. Product Notices for WooCommerce - Global Notice Display
+1. Product Notices for WooCommerce - Per-Product Notice Display
+1. Product Notices for WooCommerce - Global & Per-Product Notice Display
+1. Product Notices for WooCommerce - Global Notice Setting
+1. Product Notices for WooCommerce - Per-Product Notice Setting
 
 == Changelog ==
 abc
