@@ -2,7 +2,7 @@
 /**
  * Add tab to WooCommerce settings
  *
- * @package \WooCommerce Product Notice
+ * @package \Product Notices for WooCommerce
  * @author Aniket Desale
  */
 

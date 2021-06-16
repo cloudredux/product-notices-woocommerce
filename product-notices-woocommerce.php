@@ -46,6 +46,8 @@ class CRWCPN_Main {
 
 		add_filter( 'plugin_action_links_' . plugin_basename(__FILE__), array( $this, 'crwcpn_settings_link' ) );
 
+		add_action( 'wp_enqueue_scripts', array( $this, 'load_assets' ) );
+
 	}
 
 	/**
@@ -71,7 +73,6 @@ class CRWCPN_Main {
 	 * @since 1.0.0
 	 * 
 	 * @param array $links Array of default plugin action link
-	 * 
 	 * @return array $links New array of plugin action link
 	 */
 	public function crwcpn_settings_link( array $links ) {
@@ -98,6 +99,11 @@ class CRWCPN_Main {
 		define( 'CRWCPN_AS_SLUG', 'product-notices-woocommerce' );
 	}
 
+	/**
+	 * All core plugin file includes
+	 * 
+	 * @since 1.0.0
+	 */
 	private function includes() {
 
 		include( $this->plugin_path() . '/includes/admin/class-crwcpn-register-custom-fields.php' );
@@ -110,6 +116,11 @@ class CRWCPN_Main {
 
 	}
 
+	/**
+	 * Core plugin actions.
+	 * 
+	 * @since 1.0.0
+	 */
 	private function init_hooks() {
 
 		$this->post_fields = new CRWCPN_Custom_Fields();
@@ -122,7 +133,7 @@ class CRWCPN_Main {
 	}
 	
 	/**
-	 * Checks if WooCommerce is active if not then shows WooCommerce is not installed.
+	 * Show an admin notice if WooCommerce is not active or not installed.
 	 * 
 	 * @since 1.0.0
 	 */
@@ -136,8 +147,21 @@ class CRWCPN_Main {
 	}
 
 	/**
+	 * Load frontend-facing static assests
+	 *
+	 * @since 1.0.0
+	 */
+	public function load_assets( ) {
+
+		wp_enqueue_style( 'cr-product-notice-styles', $this->plugin_url() . '/assets/css/admin/global.css' );
+
+	}
+
+	/**
 	 * Get the plugin url.
 	 *
+	 * @since 1.0.0
+	 * 
 	 * @return string
 	 */
 	public function plugin_url() {
@@ -147,6 +171,8 @@ class CRWCPN_Main {
 
 	/**
 	 * Get the plugin path.
+	 * 
+	 * @since 1.0.0
 	 *
 	 * @return string
 	 */

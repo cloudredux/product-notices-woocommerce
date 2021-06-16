@@ -2,12 +2,19 @@
 /**
  * Defines all core plugin functions
  *
- * @package \WooCommerce Product Notice
+ * @package \Product Notices for WooCommerce
  * @author Aniket Desale
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
+/**
+ * Default supported color options for notice appearance
+ * 
+ * @since 1.0.0
+ * 
+ * @return array Default color values and labels
+ */
 function crwcpn_get_notice_colors() {
 	return apply_filters( 'crwcpn_notice_colors', array(
 		'default'	=> __( 'Default', 'cr-woocommerce-product-notice' ),
@@ -18,8 +25,11 @@ function crwcpn_get_notice_colors() {
 	) );
 }
 
-//* Add global product notice top to show up before the product description
-
+/**
+ * Show Global Notice on `woocommerce_single_product_summary` hook above the Product Short Description
+ * 
+ * @since 1.0.0
+ */
 add_action( 'woocommerce_single_product_summary', 'crwcpn_global_product_notice_top', 12 );
 
 function crwcpn_global_product_notice_top() {
@@ -39,7 +49,13 @@ function crwcpn_global_product_notice_top() {
 	}
 }
 
-//* Add product notice top to show up before the product description
+/**
+ * Show notice on `woocommerce_single_product_summary` hook above the Product Short Description for a product
+ * Product notice content and appearance style are set as post meta for the product.
+ * Shows nothing if per-product notice is not configured
+ * 
+ * @since 1.0.0
+ */
 
 add_action( 'woocommerce_single_product_summary', 'crwcpn_product_notice_top', 12 );
 

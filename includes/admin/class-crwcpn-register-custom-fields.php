@@ -1,8 +1,8 @@
 <?php
 /**
- * Registers custom fields used in products
+ * Registers custom fields for the plugin
  *
- * @package \WooCommerce Product Notice
+ * @package \Product Notices for WooCOmmerce
  * @author Aniket Desale
  */
 
@@ -16,27 +16,25 @@ class CRWCPN_Custom_Fields {
 
 		add_action( 'save_post', array( $this, 'save' ) );
 
-		add_action( 'wp_enqueue_scripts', array( $this, 'load_assets' ), 20 );
-
 	}
 
 	/**
 	 * Add metabox to Product page
 	 *
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public function meta_boxes() {
 
-		add_meta_box( 'crwcpn-product-notice', __( 'Product Notice/Information', 'cr-woocommerce-product-notice' ), array( $this, 'cr_product_notice_mb' ), 'product', 'normal', 'high' );
+		add_meta_box( 'crwcpn-product-notice', __( 'Product Notice/Information', 'product-notices-woocommerce' ), array( $this, 'cr_product_notice_mb' ), 'product', 'normal', 'high' );
 
-		add_meta_box( 'crwcpn-product-notice-global', __( 'Global Notice', 'cr-woocommerce-global-product-notice' ), array( $this, 'cr_global_product_notice_mb' ), 'product', 'side' );
+		add_meta_box( 'crwcpn-product-notice-global', __( 'Global Notice', 'product-notices-woocommerce' ), array( $this, 'cr_global_product_notice_mb' ), 'product', 'side' );
 
 	}
 
 	/**
 	 * Show checkbox on product editor to disable global notice
 	 *
-	 * @since 1.0
+	 * @since1.0.0
 	 */
 	public function cr_global_product_notice_mb( $post ) {
 
@@ -60,13 +58,13 @@ class CRWCPN_Custom_Fields {
 	/**
 	 * Product notice textarea and color metabox
 	 *
-	 * @since 1.0
+	 * @since1.0.0
 	 */
 	public function cr_product_notice_mb( $post ) {
 
 		$crwcpn_product_notice_text = get_post_meta( $post->ID, 'crwcpn_product_notice', 1 );
 
-		$crwcpn_product_notice_color = get_post_meta($post->ID, 'crwpcn_single_product_notice_background_color', true);
+		$crwcpn_product_notice_color = get_post_meta( $post->ID, 'crwpcn_single_product_notice_background_color', true );
 
 		if ( empty( $crwcpn_product_notice_text ) ) {
 
@@ -80,26 +78,30 @@ class CRWCPN_Custom_Fields {
 		?>
 		<div class="crwcpn-product-notice">
 			<h4><?php _e( 'Notice Text', 'product-notices-woocommerce' ); ?></h4>
-			<p><em><?php _e( 'Enter the information that you wish to show up on the product page after the product title.', 'product-notices-woocommerce' ); ?></em></p>
-			<textarea id="crwcpn_product_notice_top" class="crwcpn-input-textarea" name="crwcpn_product_notice_top" rows="5" cols="50" placeholder="<?php _e( 'Use of HTML is supported in this field', 'product-notices-woocommerce' ); ?>" style="width: 100%;"><?php echo esc_textarea( $crwcpn_product_notice_text ); ?></textarea>
+			<p>
+				<em><?php _e( 'Enter the information that you wish to show up on the product page after the product title.', 'product-notices-woocommerce' ); ?></em><br>
+				<textarea id="crwcpn_product_notice_top" class="crwcpn-input-textarea" name="crwcpn_product_notice_top" rows="5" cols="50" placeholder="<?php _e( 'Use of HTML is supported in this field', 'product-notices-woocommerce' ); ?>" style="width: 100%; margin-top: 8px;"><?php echo esc_textarea( $crwcpn_product_notice_text ); ?></textarea>
+			</p>
 		</div>
 		
-		<div>
+		<div class="crwcpn-product-notice-appearance">
 			<h4><?php _e( 'Notice Appearance', 'product-notices-woocommerce' ); ?></h4>
-			<label for="crwcpn_product_notice_color"><em><?php _e( 'Choose color of product notice:', 'product-notices-woocommerce'); ?></em></label><br>
-			<select name="crwcpn_product_notice_color" id="crwcpn_product_notice_color">
-				<?php foreach( $color_options as $value => $label ) : ?>
-					<option value="<?php echo esc_attr( $value ); ?>" <?php selected( $crwcpn_product_notice_color, $value ); ?>><?php echo esc_html( $label ); ?></option>
-				<?php endforeach; ?>
-			</select>
+			<p>
+				<label for="crwcpn_product_notice_color"><em><?php _e( 'Choose color of product notice:', 'product-notices-woocommerce'); ?></em></label><br>
+				<select id="crwcpn_product_notice_color" name="crwcpn_product_notice_color" style="margin-top: 8px;">
+					<?php foreach( $color_options as $value => $label ) : ?>
+						<option value="<?php echo esc_attr( $value ); ?>" <?php selected( $crwcpn_product_notice_color, $value ); ?>><?php echo esc_html( $label ); ?></option>
+					<?php endforeach; ?>
+				</select>
+			</p>
 		</div>
 		<?php
 	}
 	
 	/**
-	 * Save post meta information
+	 * Save post meta data
 	 *
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public function save( $post_id ) {
 
@@ -133,16 +135,5 @@ class CRWCPN_Custom_Fields {
 
 			update_post_meta( $post_id, 'crwpcn_single_product_notice_background_color', $crwcpn_product_notice_color );
 		}
-	}
-
-	/**
-	 * Load assest used for the plugin
-	 *
-	 * @since 1.0
-	 */
-	public function load_assets( ) {
-
-		wp_enqueue_style( 'cr-product-notice-styles', crwcpn()->plugin_url() . '/assets/css/admin/global.css' );
-
 	}
 }

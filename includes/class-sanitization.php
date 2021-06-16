@@ -6,7 +6,7 @@
  * Reference: Derived from Genesis framework's settings sanitization class
  *
  * @author Aniket Desale
- * @package \WooCommerce Product Notice
+ * @package \Product Notices for WooCommerce
  */
 
 defined( 'ABSPATH' ) or exit;
