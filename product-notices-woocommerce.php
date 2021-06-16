@@ -1,8 +1,7 @@
 <?php
 /**
- *
  *	Plugin Name: Product Notices for WooCommerce
- *	Plugin URI: https://cloudredux.com
+ *	Plugin URI: https://cloudredux.com/contributions/wordpress/product-notices-for-woocommerce/
  *	Description: Make the best of product announcements, promos, discounts, alerts, etc. on your store with this one of its kind WooCommerce extension.
  *	Version: 1.0.0
  * 	Requires at least: 5.2
@@ -11,7 +10,6 @@
  *	Author URI: https://cloudredux.com
  *	License: GPL-2.0+
  *	License URI: http://www.opensource.org/licenses/gpl-license.php
- *
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
