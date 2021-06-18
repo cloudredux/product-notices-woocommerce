@@ -17,7 +17,11 @@ Ever wanted to show notifications, alerts, announcements or general notices on t
 
 Now, make your notices on your eCommerce websites stand out more than ever! With the new Product Notices for WooCommerce plugin, highlight the most important announcements or showcase discounts on all or on any product page.
 
-With its two customization options — __Global Notices__, __Per-Product Notices__
+With its two customization options:
+
+1. __Global Notices__- These are the notices that you can highlight across your store. This feature allows you to set up notices to show on all the products. It may be some kind of market announcement, alert, or for any other criteria.
+
+1. __Per-Product Notices__-This feature allows you to show notices on a per-product basis. The notice may be in form of promo, discount, or any other criteria. This feature also allows you to hide the global notice from the page, thus allowing custom store notices an easy task.
 
 == Installation ==
 Log in to your __WordPress Dashboard__, navigate to the __Plugins__ menu and click __Add New__. In the search field type __“Product Notices for WooCommerce”__ and click on __Search Plugins__. Once you’ve found the plugin you can install it by simply clicking __“Install Now”__.
