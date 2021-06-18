@@ -6,21 +6,34 @@
  * @author Aniket Desale
  */
 
-if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
-
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly.
+}
+/**
+ * Displays Product Notice tab in WooCommerce Settings
+ *
+ * @since 1.0.0
+ */
 class CRWCPN_Admin {
 
-	/** @var string sub-menu page hook suffix */
+	/**
+	 *  Settings tab ID
+	 *
+	 *  @var string sub-menu page hook suffix
+	 */
 	private $settings_tab_id = CRWCPN_AS_SLUG;
 
+	/**
+	 * Init and render Product Notice tab in WooCommerce settings.
+	 */
 	public function __construct() {
 
 		add_filter( 'woocommerce_settings_tabs_array', array( $this, 'add_settings_tab' ), 100 );
 
-		// show settings
+		// show settings.
 		add_action( 'woocommerce_settings_tabs_' . $this->settings_tab_id, array( $this, 'render_settings' ) );
 
-		// save settings
+		// save settings.
 		add_action( 'woocommerce_update_options_' . $this->settings_tab_id, array( $this, 'save_settings' ) );
 
 	}
@@ -28,7 +41,10 @@ class CRWCPN_Admin {
 	/**
 	 * Add tab to WooCommerce Settings tabs
 	 *
-	 * @since 1.0
+	 * @param array $settings_tabs All settings.
+	 * @return array Returns setting tab array
+	 *
+	 * @since 1.0.0
 	 */
 	public function add_settings_tab( $settings_tabs ) {
 
@@ -70,7 +86,7 @@ class CRWCPN_Admin {
 
 			array(
 				'name' => __( 'Product Notice &ndash; Global Settings', 'product-notices-woocommerce' ),
-				'type' => 'title'
+				'type' => 'title',
 			),
 
 			array(
@@ -80,15 +96,15 @@ class CRWCPN_Admin {
 				'type'     => 'textarea',
 				'class'    => 'regular-text',
 			),
-	
+
 			array(
-				'id'      => 'crwpcn_product_notice_background_color',
-				'name'    => __( 'Notice Appearance', 'product-notices-woocommerce' ),
-				'desc'    => __( 'This is used to add color to product notice background', 'product-notices-woocommerce' ),
-				'type'    => 'select',
-				'class'   => 'regular-text',
-				'options' => crwcpn_get_notice_colors(),
-				'desc_tip' =>  true,
+				'id'       => 'crwpcn_product_notice_background_color',
+				'name'     => __( 'Notice Appearance', 'product-notices-woocommerce' ),
+				'desc'     => __( 'This is used to add color to product notice background', 'product-notices-woocommerce' ),
+				'type'     => 'select',
+				'class'    => 'regular-text',
+				'options'  => crwcpn_get_notice_colors(),
+				'desc_tip' => true,
 			),
 
 			array( 'type' => 'sectionend' ),

@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Sanitization class to handle validation of user input
  *
@@ -9,16 +8,28 @@
  * @package \Product Notices for WooCommerce
  */
 
-defined( 'ABSPATH' ) or exit;
+defined( 'ABSPATH' ) || exit;
 
 /** Settings sanitization class. Ensures saved values are of the expected type. **/
 class CRWCPN_Settings_Sanitization {
+	/**
+	 * Class level variable
+	 *
+	 * @var Object
+	 */
+	public static $instance;
 
-	static $instance;
-
+	/**
+	 * Settings array
+	 *
+	 * @var array
+	 */
 	public $options = array();
 
-	function __construct() {
+	/**
+	 * Class Intialization.
+	 */
+	public function __construct() {
 
 		self::$instance =& $this;
 
@@ -26,7 +37,16 @@ class CRWCPN_Settings_Sanitization {
 
 	}
 
-	function add_filter( $filter, $settings, $option = null ) {
+	/**
+	 * Sanitization filter.
+	 *
+	 * @param string $filter Name of filter.
+	 * @param array  $settings Setting variable name.
+	 * @param array  $option Option setting.
+	 *
+	 * @return bool
+	 */
+	public function add_filter( $filter, $settings, $option = null ) {
 
 		if ( is_array( $option ) ) {
 			foreach ( $option as $name ) {
@@ -44,18 +64,33 @@ class CRWCPN_Settings_Sanitization {
 
 	}
 
-	function do_filter( $filter, $new_value, $old_value ) {
+	/**
+	 * Do filter.
+	 *
+	 * @param string       $filter Name of filter.
+	 * @param string|array $new_value Modified value.
+	 * @param string|array $old_value Old value.
+	 *
+	 * @return string|array
+	 */
+	public function do_filter( $filter, $new_value, $old_value ) {
 
 		$available_filters = $this->get_available_sanitization_filters();
 
-		if ( ! in_array( $filter, array_keys( $available_filters ) ) )
+		if ( ! in_array( $filter, array_keys( $available_filters ), true ) ) {
 			return $new_value;
+		}
 
-		return call_user_func( $available_filters[$filter], $new_value, $old_value );
+		return call_user_func( $available_filters[ $filter ], $new_value, $old_value );
 
 	}
 
-	function get_available_sanitization_filters() {
+	/**
+	 * Sanitization filters array
+	 *
+	 * @return array
+	 */
+	public function get_available_sanitization_filters() {
 
 		$default_filters = array(
 			'one_zero'                 => array( $this, 'one_zero' ),
@@ -66,7 +101,7 @@ class CRWCPN_Settings_Sanitization {
 			'unfiltered_or_safe_html'  => array( $this, 'unfiltered_or_safe_html' ),
 			'url'                      => array( $this, 'url' ),
 			'email_address'            => array( $this, 'email_address' ),
-			'sanitize_string'		   => array( $this, 'sanitize_string' ),
+			'sanitize_string'          => array( $this, 'sanitize_string' ),
 		);
 
 		/**
@@ -80,14 +115,22 @@ class CRWCPN_Settings_Sanitization {
 
 	}
 
-	function sanitize( $new_value, $input ) {
+	/**
+	 * Do filter.
+	 *
+	 * @param string       $new_value Santized value.
+	 * @param string|array $input Provided input.
+	 *
+	 * @return string|array
+	 */
+	public function sanitize( $new_value, $input ) {
 
 		if ( ! isset( $this->options[ $input ] ) ) {
 
 			return $new_value;
-		
+
 		} elseif ( is_string( $this->options[ $input ] ) ) {
-			
+
 			return $this->do_filter( $this->options[ $input ], $new_value, get_option( $input ) );
 
 		} elseif ( is_array( $this->options[ $input ] ) ) {
@@ -105,7 +148,7 @@ class CRWCPN_Settings_Sanitization {
 			return $new_value;
 
 		} else {
-			
+
 			return $new_value;
 		}
 
@@ -115,8 +158,10 @@ class CRWCPN_Settings_Sanitization {
 	 * Returns a 1 or 0, for all truthy / falsy values.
 	 *
 	 * Uses double casting. First, we cast to bool, then to integer.
+	 *
+	 * @param bool $new_value sanitized boolean value.
 	 */
-	function one_zero( $new_value ) {
+	public function one_zero( $new_value ) {
 
 		return (int) (bool) $new_value;
 
@@ -124,8 +169,10 @@ class CRWCPN_Settings_Sanitization {
 
 	/**
 	 * Returns a positive integer value.
+	 *
+	 * @param int $new_value sanitized positive value.
 	 */
-	function absint( $new_value ) {
+	public function absint( $new_value ) {
 
 		return absint( $new_value );
 
@@ -133,17 +180,21 @@ class CRWCPN_Settings_Sanitization {
 
 	/**
 	 * Removes HTML tags from string.
+	 *
+	 * @param string $new_value Sanitized string without HTML tags.
 	 */
-	function no_html( $new_value ) {
+	public function no_html( $new_value ) {
 
-		return strip_tags( $new_value );
+		return wp_strip_all_tags( $new_value );
 
 	}
 
 	/**
 	 * Makes URLs safe
+	 *
+	 * @param string $new_value Cleaned url.
 	 */
-	function url( $new_value ) {
+	public function url( $new_value ) {
 
 		return esc_url_raw( $new_value );
 
@@ -151,8 +202,10 @@ class CRWCPN_Settings_Sanitization {
 
 	/**
 	 * Makes Email Addresses safe, via sanitize_email()
+	 *
+	 * @param string $new_value Striped email.
 	 */
-	function email_address( $new_value ) {
+	public function email_address( $new_value ) {
 
 		return sanitize_email( $new_value );
 
@@ -160,8 +213,10 @@ class CRWCPN_Settings_Sanitization {
 
 	/**
 	 * Removes unsafe HTML tags, via wp_kses_post().
+	 *
+	 * @param string $new_value Output with valid HTML tags.
 	 */
-	function safe_html( $new_value ) {
+	public function safe_html( $new_value ) {
 
 		return wp_kses_post( $new_value );
 
@@ -169,20 +224,27 @@ class CRWCPN_Settings_Sanitization {
 
 	/**
 	 * Keeps the option from being updated if the user lacks unfiltered_html capability.
+	 *
+	 * @param string $new_value Unfiltered string with HTML tags.
+	 * @param string $old_value Raw input value.
 	 */
-	function requires_unfiltered_html( $new_value, $old_value ) {
+	public function requires_unfiltered_html( $new_value, $old_value ) {
 
-		if ( current_user_can( 'unfiltered_html' ) )
+		if ( current_user_can( 'unfiltered_html' ) ) {
 			return $new_value;
-		else
+		} else {
 			return $old_value;
+		}
 
 	}
 
 	/**
 	 * Removes unsafe HTML tags when user does not have unfiltered_html capability.
+	 *
+	 * @param string $new_value Data without unsafe HTML tags.
+	 * @param string $old_value Data with unsafe HTML tags.
 	 */
-	function unfiltered_or_safe_html( $new_value, $old_value ) {
+	public function unfiltered_or_safe_html( $new_value, $old_value ) {
 
 		if ( current_user_can( 'unfiltered_html' ) ) {
 			return $new_value;
@@ -194,15 +256,25 @@ class CRWCPN_Settings_Sanitization {
 
 	/**
 	 * Sanitizes the input strings based on WP's sanitize_title filter; strips all HTML, PHP tags, accents removed
+	 *
+	 * @param string $new_value Sanitized input string.
 	 */
-	function sanitize_string( $new_value ) {
+	public function sanitize_string( $new_value ) {
 
 		return sanitize_title( $new_value );
 
 	}
 
 }
-
+/**
+ * Settings filter
+ *
+ * @param string $filter Name of filter.
+ * @param array  $settings Setting variable name.
+ * @param array  $option Option setting.
+ *
+ * @return array|bool|string|int
+ */
 function crwcpn_settings_filter( $filter, $settings, $option = null ) {
 
 	return CRWCPN_Settings_Sanitization::$instance->add_filter( $filter, $settings, $option );
@@ -213,9 +285,11 @@ function crwcpn_settings_filter( $filter, $settings, $option = null ) {
  * Instantiate the Sanitizer.
  */
 add_action( 'admin_init', 'crwcpn_sanitize_settings' );
-
+/**
+ * Sanitization function.
+ */
 function crwcpn_sanitize_settings() {
 
-	new CRWCPN_Settings_Sanitization;
+	new CRWCPN_Settings_Sanitization();
 
 }
