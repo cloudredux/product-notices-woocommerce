@@ -24,14 +24,18 @@ With its two customization options:
 1. __Per-Product Notices__-This feature allows you to show notices on a per-product basis. The notice may be in form of promo, discount, or any other criteria. This feature also allows you to hide the global notice from the page, thus allowing custom store notices an easy task.
 
 === Setting up Global Notice ===
-In order to set up a Global Notice for the products on your store, navigate to the Settings menu under WooCommerce on the WordPress Dashboard. Click on the Product Notice tab and use the settings field to set up the product notice that you intend to show on all the products in the store.
+In order to set up a Global Notice for the products on your store:
 
-Choose from a set of default appearance styles to set-up how your notice shows up on the product pages using the Notice Appearance dropdown.
+1. Navigate to the __Settings__ menu under __WooCommerce__ on the WordPress Dashboard.
+1. Click on the __Product Notice__ tab and use the settings field to set up the product notice to show on all the products in the store.
+1. Choose from a set of default appearance styles to set-up how your notice shows up on the product pages using the __Notice Appearance__ dropdown.
 
 === Setting up Per-Product Notice ===
 If you would rather show a notice, alert, announcement, etc. only on one or more and not all the products in your store, the plugin allows you to do just that.
 
-Head to the Edit Product screen for a product and look for the Product Notice/Information metabox and add the desired content in the Notice Text field. Choose from a set of default appearance styles to set-up how your notice shows up on the page using the Notice Appearance dropdown.
+1. Head to the __Edit Product__ screen for a product and look for the __Product Notice/Information__ metabox.
+1. Add the desired content in the *Notice Text* field.
+1. Choose from a set of default appearance styles to set-up how your notice shows up on the page using the __Notice Appearance__ dropdown.
 
 == Installation ==
 Log in to your __WordPress Dashboard__, navigate to the __Plugins__ menu and click __Add New__. In the search field type __“Product Notices for WooCommerce”__ and click on __Search Plugins__. Once you’ve found the plugin you can install it by simply clicking __“Install Now”__.
