@@ -44,9 +44,14 @@ add_action( 'woocommerce_single_product_summary', 'crwcpn_global_product_notice_
  */
 function crwcpn_global_product_notice_top() {
 
-	$crwcpn_hide_global_notice = get_post_meta( get_the_ID(), 'crwcpn_hide_global_notice', 1 );
-
 	$crwcpn_global_product_notice_text = get_option( 'crwpcn_global_product_notice' );
+
+	// Do nothing, if notice not set
+	if ( empty( $crwcpn_global_product_notice_text ) ) {
+		return;
+	}
+
+	$crwcpn_hide_global_notice = get_post_meta( get_the_ID(), 'crwcpn_hide_global_notice', 1 );
 
 	$crwcpn_global_product_notice_background_color = get_option( 'crwpcn_product_notice_background_color' );
 
