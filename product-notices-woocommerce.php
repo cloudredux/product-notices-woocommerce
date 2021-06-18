@@ -127,7 +127,7 @@ if ( ! class_exists( 'CRWCPN_Main' ) ) :
 		 */
 		private function includes() {
 
-			include $this->plugin_path() . '/includes/admin/class-crwcpn-register-custom-fields.php';
+			include $this->plugin_path() . '/includes/admin/class-crwcpn-custom-fields.php';
 
 			include $this->plugin_path() . '/includes/admin/class-crwcpn-admin.php';
 
