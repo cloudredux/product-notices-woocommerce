@@ -1,6 +1,6 @@
 === Product Notices for WooCommerce ===
 Contributors: cloudredux
-Tags: woocommerce, woocommerce notice, product notice, woocommerce product notice, product alert
+Tags: woocommerce, notices, notification, promo, alert, product-notice, woocommerce-notice
 Requires at least: 5.2
 Tested up to: 5.7.2
 Requires PHP: 7.2
@@ -59,7 +59,7 @@ If you do not wish to display the notice on all the products, you can set up not
 Sure, if you have a configured a global notice to show on products and would like to display additional information, promo, discount notice or any other type of notice on a product page; you can simply head straight to the __Edit Product__ screen for a product and add the notice. In this case, both the Global and Per-Product notice would be displayed on that product page.
 
 = Can I disable global notice for one or more products? =
-If you want some of the product pages on your store to not display the global notice that you have set up, just head to the __Edit Screen__ for the products(s) and locate the __Global Notice__ metabox in the sidebar. Check that box to hide the global notice on that product page.
+If you want some of the product pages on your store to not display the global notice that you have set up, just head to the __Edit Screen__ for the product(s) and locate the __Global Notice__ metabox in the sidebar. Check that box to hide the global notice on that product page.
 
 = Is HTML supported in the notice text field? =
 Yes you can use standard HTML tags to customize and set-up notices to your liking!
