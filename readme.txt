@@ -1,6 +1,6 @@
 === Product Notices for WooCommerce ===
 Contributors: cloudredux
-Tags: woocommerce, notices, notification, promo, alert, product-notice, woocommerce-notice
+Tags: woocommerce, notices, notification, promo, alert, product notice, WooCommerce notice
 Requires at least: 5.2
 Tested up to: 5.7.2
 Requires PHP: 7.2
