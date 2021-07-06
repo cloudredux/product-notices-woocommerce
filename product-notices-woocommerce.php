@@ -1,15 +1,21 @@
 <?php
 /**
- *  Plugin Name: Product Notices for WooCommerce
- *  Plugin URI: https://cloudredux.com/contributions/wordpress/product-notices-for-woocommerce/
- *  Description: Make the best of product announcements, promos, discounts, alerts, etc. on your store with this one of its kind WooCommerce extension.
- *  Version: 1.0.0
- *  Requires at least: 5.2
- *  Requires PHP:      7.2
- *  Author: CloudRedux
- *  Author URI: https://cloudredux.com
- *  License: GPL-2.0+
- *  License URI: http://www.opensource.org/licenses/gpl-license.php
+ * @package   Product Notices for WooCommerce
+ * @author    CloudRedux
+ * @copyright Copyright (C) 2021, CloudRedux - support@cloudredux.com
+ * @license   https://www.gnu.org/licenses/gpl-3.0.html GNU General Public License, version 3 or higher
+ *
+ * @wordpress-plugin
+ * Plugin Name:       Product Notices for WooCommerce
+ * Plugin URI:        https://cloudredux.com/contributions/wordpress/product-notices-for-woocommerce/
+ * Description:       Make the best of product announcements, promos, discounts, alerts, etc. on your store with this one of its kind WooCommerce extension.
+ * Version:           1.0.1
+ * Requires at least: 5.2
+ * Requires PHP:      7.2
+ * Author:            CloudRedux
+ * Author URI:        https://cloudredux.com
+ * License:           GPL v3 or later
+ * License URI:       https://www.gnu.org/licenses/gpl-3.0.html
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -59,15 +65,18 @@ if ( ! class_exists( 'CRWCPN_Main' ) ) :
 
 			$this->define_constants();
 
-			$this->includes();
-
-			$this->init_hooks();
-
 			add_action( 'admin_notices', array( $this, 'crwcpn_wc_activation_notice' ) );
 
-			add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), array( $this, 'crwcpn_settings_link' ) );
+			if ( $this->is_woocommerce_active() ) {
 
-			add_action( 'wp_enqueue_scripts', array( $this, 'load_assets' ) );
+				$this->includes();
+
+				$this->init_hooks();
+
+				add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), array( $this, 'crwcpn_settings_link' ) );
+
+				add_action( 'wp_enqueue_scripts', array( $this, 'load_assets' ) );
+			}
 
 		}
 
@@ -115,7 +124,7 @@ if ( ! class_exists( 'CRWCPN_Main' ) ) :
 
 			define( 'CRWCPN_SLUG', 'crwcpn-settings' );
 
-			define( 'CRWCPN_VER', '1.0.0' );
+			define( 'CRWCPN_VER', '1.0.1' );
 
 			define( 'CRWCPN_AS_SLUG', 'product-notices-woocommerce' );
 		}
@@ -160,11 +169,12 @@ if ( ! class_exists( 'CRWCPN_Main' ) ) :
 		 */
 		public function crwcpn_wc_activation_notice() {
 
-			if ( ! $this->is_woocommerce_active() ) : ?>
-				<?php /* translators: %s is replaced with url to woocommerce.com */ ?>
-				<div class="error"><p><strong><?php printf( esc_html__( 'Product Notice requires WooCommerce to be installed and active. You can download <a href="%s" target="_blank">WooCommerce</a> here.', 'product-notices-woocommerce' ), esc_url( 'https://woocommerce.com/' ) ); ?></strong></p></div>
-				<?php
-			endif;
+			if ( ! $this->is_woocommerce_active() ) {
+				echo '<div class="error"><p><strong>';
+					/* translators: %s is replaced with url to woocommerce.com */
+					printf( esc_html__( 'Product Notice requires WooCommerce to be installed and active. You can download %s here.', 'product-notices-woocommerce' ), '<a href="' . esc_url( network_admin_url( 'plugin-install.php?s=woocommerce&amp;tab=search&amp;type=term' ) ) . '">WooCommerce</a>' );
+				echo '</strong></p></div>';
+			}
 		}
 
 		/**
@@ -174,7 +184,7 @@ if ( ! class_exists( 'CRWCPN_Main' ) ) :
 		 */
 		public function load_assets() {
 
-			wp_enqueue_style( 'cr-product-notice-styles', $this->plugin_url() . '/assets/css/admin/global.css', array(), CRWCPN_VER );
+			wp_enqueue_style( 'cr-product-notice-styles', $this->plugin_url() . '/assets/css/frontend/global.css', array(), CRWCPN_VER );
 
 		}
 

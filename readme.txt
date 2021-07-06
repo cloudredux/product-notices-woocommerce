@@ -4,9 +4,9 @@ Tags: woocommerce, notices, notification, promo, alert, product notice, WooComme
 Requires at least: 5.2
 Tested up to: 5.7.2
 Requires PHP: 7.2
-Stable tag: 1.0.0
-License: GPLv2 or later
-License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Stable tag: 1.0.1
+License: GPLv3
+License URI: http://www.gnu.org/licenses/gpl.html
 
 Make the best of product announcements, promos, discounts, alerts, etc. on your eCommerce site with this one of its kind WooCommerce extension.
 
@@ -75,6 +75,12 @@ Sure, feel free to use any shortcode in the notice text field and it would outpu
 1. Product Notices for WooCommerce - Per-Product Notice Setting
 
 == Changelog ==
+
+= 1.0.1 =
+1. Fixes leaking HTML tags (escaped initially) in the admin notice text when WooCommerce is inactive or not installed.
+2. Added a review box to plugin settings tab under WooCommerce Settings.
+3. Organized the front-end loading CSS to contextual directory under `assets`.
+4. Fixes related to better handling the plugin behavior when WooCommerce is inactive or unavailable.
 
 = 1.0.0 =
 Initial release of the plugin.

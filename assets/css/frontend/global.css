@@ -1,6 +1,7 @@
 /**
-* Stylesheet to add global styles specific to Product Notice
-*/
+ * Stylesheet for frontend styles.
+ */
+
 .crwcpn-notice,
 .crwcpn-notice.default {
 	background-color: #f8f8f8;

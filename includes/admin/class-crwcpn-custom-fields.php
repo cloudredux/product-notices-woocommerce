@@ -37,7 +37,7 @@ class CRWCPN_Custom_Fields {
 
 		add_meta_box( 'crwcpn-product-notice', __( 'Product Notice/Information', 'product-notices-woocommerce' ), array( $this, 'cr_product_notice_mb' ), 'product', 'normal', 'high' );
 
-		add_meta_box( 'crwcpn-product-notice-global', __( 'Global Notice', 'product-notices-woocommerce' ), array( $this, 'cr_global_product_notice_mb' ), 'product', 'side' );
+		add_meta_box( 'crwcpn-product-notice-global', __( 'Global Product Notice', 'product-notices-woocommerce' ), array( $this, 'cr_global_product_notice_mb' ), 'product', 'side' );
 
 	}
 
