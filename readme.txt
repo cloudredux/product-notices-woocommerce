@@ -2,7 +2,7 @@
 Contributors: cloudredux
 Tags: woocommerce, notices, notification, promo, alert, product notice, WooCommerce notice
 Requires at least: 5.2
-Tested up to: 5.7.2
+Tested up to: 5.8
 Requires PHP: 7.2
 Stable tag: 1.0.1
 License: GPLv3
