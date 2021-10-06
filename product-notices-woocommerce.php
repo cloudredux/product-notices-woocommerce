@@ -9,7 +9,7 @@
  * Plugin Name:       Product Notices for WooCommerce
  * Plugin URI:        https://cloudredux.com/contributions/wordpress/product-notices-for-woocommerce/
  * Description:       Make the best of product announcements, promos, discounts, alerts, etc. on your store with this one of its kind WooCommerce extension.
- * Version:           1.0.1
+ * Version:           1.1.0
  * Requires at least: 5.2
  * Requires PHP:      7.2
  * Author:            CloudRedux
@@ -29,16 +29,19 @@ if ( ! class_exists( 'CRWCPN_Main' ) ) :
 	 * @since 1.0.0
 	 */
 	class CRWCPN_Main {
+		// @codingStandardsIgnoreLine
 		/**
 		 * @var CRWCPN_Custom_Fields class object
 		 */
 		private $post_fields;
 
+		// @codingStandardsIgnoreLine
 		/**
 		 * @var CRWCPN_Admin class object
 		 */
 		private $admin_page;
 
+		// @codingStandardsIgnoreLine
 		/**
 		 * @var Single instance of the class
 		 */
@@ -93,7 +96,7 @@ if ( ! class_exists( 'CRWCPN_Main' ) ) :
 				$active_plugins = array_merge( $active_plugins, get_site_option( 'active_sitewide_plugins', array() ) );
 			}
 
-			return in_array( 'woocommerce/woocommerce.php', $active_plugins ) || array_key_exists( 'woocommerce/woocommerce.php', $active_plugins );
+			return in_array( 'woocommerce/woocommerce.php', $active_plugins, true ) || array_key_exists( 'woocommerce/woocommerce.php', $active_plugins );
 
 		}
 
@@ -124,7 +127,7 @@ if ( ! class_exists( 'CRWCPN_Main' ) ) :
 
 			define( 'CRWCPN_SLUG', 'crwcpn-settings' );
 
-			define( 'CRWCPN_VER', '1.0.1' );
+			define( 'CRWCPN_VER', '1.1.0' );
 
 			define( 'CRWCPN_AS_SLUG', 'product-notices-woocommerce' );
 		}

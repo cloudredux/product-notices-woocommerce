@@ -4,7 +4,7 @@
  *
  * Reference: Derived from Genesis framework's settings sanitization class
  *
- * @author Aniket Desale
+ * @author Aniket Ashtikar
  * @package \Product Notices for WooCommerce
  */
 

@@ -4,7 +4,7 @@ Tags: woocommerce, notices, notification, promo, alert, product notice, WooComme
 Requires at least: 5.2
 Tested up to: 5.8
 Requires PHP: 7.2
-Stable tag: 1.0.1
+Stable tag: 1.1.0
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl.html
 
@@ -76,11 +76,15 @@ Sure, feel free to use any shortcode in the notice text field and it would outpu
 
 == Changelog ==
 
+= 1.1.0 = 
+1. **New:** Added custom style to Appearance options for Notice display. Custom styles allow you to choose custom background, border and text color for notice display. Color picker support allows more flexibility with color selection.
+1. Introduced *Upcoming Features* admin widget on plugin settings page under WooCommerce Settings to keep users updated about planned plugin features (via feed).
+
 = 1.0.1 =
 1. Fixes leaking HTML tags (escaped initially) in the admin notice text when WooCommerce is inactive or not installed.
-2. Added a review box to plugin settings tab under WooCommerce Settings.
-3. Organized the front-end loading CSS to contextual directory under `assets`.
-4. Fixes related to better handling the plugin behavior when WooCommerce is inactive or unavailable.
+1. Added a review box to plugin settings tab under WooCommerce Settings.
+1. Organized the front-end loading CSS to contextual directory under `assets`.
+1. Fixes related to better handling the plugin behavior when WooCommerce is inactive or unavailable.
 
 = 1.0.0 =
 Initial release of the plugin.
