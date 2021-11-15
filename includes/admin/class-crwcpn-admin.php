@@ -203,10 +203,10 @@ class CRWCPN_Admin {
 			<h3 class="crwcpn-heading crwcpn-card"><span class="dashicons dashicons-bell"></span> <?php esc_html_e( 'Upcoming Features', 'product-notices-woocommerce' ); ?></h3>
 			<div class="crwcpn-inside crwcpn-card rss-widget">
 				<p><em><?php esc_html_e( 'Keep watching this space to know about upcoming planned features in the plugin.', 'product-notices-woocommerce' ); ?></em></p>
-				<?php wp_widget_rss_output( $args['url'], $args ); ?>
+				<?php self::widget_rss_output( $args['url'], $args ); ?>
 				<hr />
 				<p><?php esc_html_e( 'If you\'d like to suggest a feature, click on the button below to submit your suggestion.', 'product-notices-woocommerce' ); ?></p>
-				<a href="<?php echo esc_url( 'https://cloudredux.com/wordpress-plugin-features-suggest-a-feature/?spf-plugin-name=Product%20Notices%20for%20WooCommerce' ); ?>" class="button secondary"><?php esc_html_e( 'Suggest a feature &rarr;', 'product-notices-woocommerce' ); ?></a>
+				<a href="<?php echo esc_url( 'https://cloudredux.com/wordpress-plugin-features-suggest-a-feature/?spf-plugin-name=Product%20Notices%20for%20WooCommerce&utm_source=plugin-setting&utm_medium=plugin-referral&utm_campaign=suggest-feature' ); ?>" class="button secondary"><?php esc_html_e( 'Suggest a feature &rarr;', 'product-notices-woocommerce' ); ?></a>
 			</div>
 		</div>
 		<?php
@@ -235,6 +235,122 @@ class CRWCPN_Admin {
 			</div>
 		</div>
 		<?php
+	}
+
+	/**
+	 * Imitates `wp_widget_rss_output()` function to render RSS widger markup.
+	 * Just added UTM codes for outgoing links to posts ;)
+	 * 
+	 * @since 1.1.1
+	 */
+	public static function widget_rss_output( $rss, $args = array() ) {
+
+		if ( is_string( $rss ) ) {
+			$rss = fetch_feed( $rss );
+		} elseif ( is_array( $rss ) && isset( $rss['url'] ) ) {
+			$args = $rss;
+			$rss  = fetch_feed( $rss['url'] );
+		} elseif ( ! is_object( $rss ) ) {
+			return;
+		}
+
+		if ( is_wp_error( $rss ) ) {
+			if ( is_admin() || current_user_can( 'manage_options' ) ) {
+				echo '<p><strong>' . __( 'RSS Error:' ) . '</strong> ' . $rss->get_error_message() . '</p>';
+			}
+			return;
+		}
+
+		$default_args = array(
+			'show_author'  => 0,
+			'show_date'    => 0,
+			'show_summary' => 0,
+			'items'        => 0,
+		);
+
+		$args         = wp_parse_args( $args, $default_args );
+
+		$items = (int) $args['items'];
+		
+		if ( $items < 1 || 20 < $items ) {
+			$items = 10;
+		}
+		
+		$show_summary = (int) $args['show_summary'];
+		$show_author  = (int) $args['show_author'];
+		$show_date    = (int) $args['show_date'];
+
+		if ( ! $rss->get_item_quantity() ) {
+			echo '<ul><li>' . __( 'An error has occurred, which probably means the feed is down. Try again later.' ) . '</li></ul>';
+			$rss->__destruct();
+			unset( $rss );
+			return;
+		}
+
+		echo '<ul>';
+		foreach ( $rss->get_items( 0, $items ) as $item ) {
+			
+			$link = $item->get_link();
+			
+			while ( ! empty( $link ) && stristr( $link, 'http' ) !== $link ) {
+				$link = substr( $link, 1 );
+			}
+			
+			$link = esc_url( strip_tags( $link ) );
+
+			$title = esc_html( trim( strip_tags( $item->get_title() ) ) );
+			
+			if ( empty( $title ) ) {
+				$title = __( 'Untitled' );
+			}
+
+			$desc = html_entity_decode( $item->get_description(), ENT_QUOTES, get_option( 'blog_charset' ) );
+			$desc = esc_attr( wp_trim_words( $desc, 55, ' [&hellip;]' ) );
+
+			$summary = '';
+			if ( $show_summary ) {
+				$summary = $desc;
+
+	            // Change existing [...] to [&hellip;].
+				if ( '[...]' === substr( $summary, -5 ) ) {
+					$summary = substr( $summary, 0, -5 ) . '[&hellip;]';
+				}
+
+				$summary = '<div class="rssSummary">' . esc_html( $summary ) . '</div>';
+			}
+
+			$date = '';
+			if ( $show_date ) {
+				$date = $item->get_date( 'U' );
+
+				if ( $date ) {
+					$date = ' <span class="rss-date">' . date_i18n( get_option( 'date_format' ), $date ) . '</span>';
+				}
+			}
+
+			$author = '';
+			if ( $show_author ) {
+				$author = $item->get_author();
+				if ( is_object( $author ) ) {
+					$author = $author->get_name();
+					$author = ' <cite>' . esc_html( strip_tags( $author ) ) . '</cite>';
+				}
+			}
+
+			if ( '' === $link ) {
+				echo "<li>$title{$date}{$summary}{$author}</li>";
+			} elseif ( $show_summary ) {
+				$link .= '?utm_source=feed&utm_medium=feed-referral&utm_campaign=crwcpn-upcoming-features';
+				echo "<li><a class='rsswidget' href='$link'>$title</a>{$date}{$summary}{$author}</li>";
+			} else {
+				$link .= '?utm_source=feed&utm_medium=feed-referral&utm_campaign=crwcpn-upcoming-features';
+				echo "<li><a class='rsswidget' href='$link'>$title</a>{$date}{$author}</li>";
+			}
+		}
+		echo '</ul>';
+
+		$rss->__destruct();
+		unset( $rss );
 	}
 
 }
