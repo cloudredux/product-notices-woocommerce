@@ -39,7 +39,6 @@ function crwcpn_get_notice_colors() {
  * @return array Default custom color style values
  */
 function crwcpn_custom_style_defaults() {
-
 	return apply_filters(
 		'crwcpn_custom_style_defaults',
 		array(
@@ -61,36 +60,58 @@ add_action( 'woocommerce_single_product_summary', 'crwcpn_global_product_notice_
  * Display Global product notice.
  */
 function crwcpn_global_product_notice_top() {
-
 	/**
-	 * @since	1.1.1
-	 * @uses`	crwcpn_get_global_product_notice` function to render notice.
-	 * 			previously the output markup was directly echoed at this hook location.
+	 * @since   1.1.1
+	 * @uses`   crwcpn_get_global_product_notice` function to render notice.
+	 *          previously the output markup was directly echoed at this hook location.
 	 */
-	echo crwcpn_get_global_product_notice(); // phpcs:ignore WordPress.Security.EscapeOutput 
 
+	// Get multi select field ID.
+	$global_notice_checkbox = get_option( 'crwpcn_global_product_notice_use_display_rules' );
+
+	if ( 'yes' === $global_notice_checkbox ) {
+
+		global $post;
+
+		$product = wc_get_product( get_the_ID() );
+
+		$product_categories = $product->get_category_ids();
+		$product_tags       = $product->get_tag_ids();
+
+		$selected_product_categories = get_option( 'crwpcn_product_notice_display_by_categories' );
+		$selected_product_tags       = get_option( 'crwpcn_product_notice_display_by_tags' );
+
+		$in_selected_categories = array_intersect( $selected_product_categories, $product_categories );
+		$in_selected_tags       = array_intersect( $selected_product_tags, $product_tags );
+
+		if ( ! empty( $in_selected_categories ) || ! empty( $in_selected_tags ) ) {
+			echo crwcpn_get_global_product_notice(); // phpcs:ignore WordPress.Security.EscapeOutput
+		}
+
+		return;
+	}
+
+	echo crwcpn_get_global_product_notice(); // phpcs:ignore WordPress.Security.EscapeOutput
 }
 
 /**
  * Get Global product notice based on the plugin setting.
- * 
+ *
  * @since 1.1.1
  *
  * @param bool $echo If boolean value is false fuction echo.
  * @return string Return or echo the product notice markup.
  */
 function crwcpn_get_global_product_notice( $echo = false ) {
-
 	$crwcpn_hide_global_notice = false;
 
 	// Check if disabled on a product page.
 	if ( function_exists( 'is_product' ) && is_product() ) {
 
 		$crwcpn_hide_global_notice = get_post_meta( get_the_ID(), 'crwcpn_hide_global_notice', 1 );
-	
 	}
 
-	$crwcpn_global_product_notice_text = get_option( 'crwpcn_global_product_notice' );
+	$crwcpn_global_product_notice_text  = get_option( 'crwpcn_global_product_notice' );
 	$crwcpn_global_product_notice_style = get_option( 'crwpcn_product_notice_background_color' );
 
 	// Bail, if notice not set.
@@ -117,22 +138,20 @@ function crwcpn_get_global_product_notice( $echo = false ) {
 		$styles = ' style="background-color: ' . esc_attr( $custom_background_color ) . '; color: ' . esc_attr( $custom_text_color ) . '; border-color: ' . esc_attr( $custom_border_color ) . '"';
 
 		$color_class = 'crwcpn-custom-style';
-
 	}
 
 	if ( ! $crwcpn_hide_global_notice ) {
 
 		$content  = '<div class="crwcpn-notice crwcpn-global-notice ' . esc_attr( $color_class ) . '"' . $styles . '>';
-		$content .= wp_kses_post( do_shortcode( $crwcpn_global_product_notice_text ) );
+		$content .= do_shortcode( wp_kses_post( $crwcpn_global_product_notice_text ) );
 		$content .= '</div>';
 	}
 
-	// Return or echo.
+	// Return or echo content.
 	if ( $echo ) {
 
 		echo $content; // phpcs:ignore WordPress.Security.EscapeOutput 
 		return;
-
 	} else {
 
 		return $content;
@@ -153,30 +172,27 @@ add_action( 'woocommerce_single_product_summary', 'crwcpn_product_notice_top', 1
  * Display per-product notice
  */
 function crwcpn_product_notice_top() {
-
 	/**
-	 * @since	1.1.1
-	 * @uses`	crwcpn_get_product_notice` function to render notice.
-	 * 			previously the output markup was directly echoed at this hook location.
+	 * @since   1.1.1
+	 * @uses`   crwcpn_get_product_notice` function to render notice.
+	 *          previously the output markup was directly echoed at this hook location.
 	 */
 	echo crwcpn_get_product_notice( get_the_ID() ); // phpcs:ignore WordPress.Security.EscapeOutput 
 }
 
 /**
  * Get product notice for specific product.
- * 
+ *
  * @since 1.1.1
  *
  * @param int  $id Product ID. Defaults to current product ID (global $post).
  * @param bool $echo Return or echo the product notice markup.
  */
 function crwcpn_get_product_notice( $id = null, $echo = false ) {
-
 	if ( null !== $id ) { // Use the ID if supplied.
 
 		$product_id = intval( $id );
-
-	} else { // Default to current product ID
+	} else { // Default to current product ID.
 
 		$product_id = ( function_exists( 'is_product' ) && is_product() ) ? get_the_ID() : 0;
 	}
@@ -194,7 +210,7 @@ function crwcpn_get_product_notice( $id = null, $echo = false ) {
 	 * Color picker options.
 	 *
 	 * @since 1.1.0
-	*/
+	 */
 	$single_custom_background_color = get_post_meta( $product_id, 'crwpcn_single_product_notice_custom_background_color', true );
 	$single_custom_text_color       = get_post_meta( $product_id, 'crwpcn_single_product_notice_custom_text_color', true );
 	$single_custom_border_color     = get_post_meta( $product_id, 'crwpcn_single_product_notice_custom_border_color', true );
@@ -208,44 +224,42 @@ function crwcpn_get_product_notice( $id = null, $echo = false ) {
 		$styles = ' style="background-color: ' . esc_attr( $single_custom_background_color ) . '; color: ' . esc_attr( $single_custom_text_color ) . '; border-color: ' . esc_attr( $single_custom_border_color ) . '"';
 
 		$color_class = 'crwcpn-custom-style';
-
 	}
 
 	if ( ! empty( $crwcpn_single_product_notice_text ) ) {
 
 		$content  = '<div class="crwcpn-notice crwcpn-product-notice ' . esc_attr( $color_class ) . '"' . $styles . '>';
-		$content .= wp_kses_post( do_shortcode( $crwcpn_single_product_notice_text ) );
+		$content .= do_shortcode( wp_kses_post( $crwcpn_single_product_notice_text ) );
 		$content .= '</div>';
-
 	}
 
-	// Return or echo.
+	// Return or echo content.
 	if ( $echo ) {
 
 		echo $content; // phpcs:ignore WordPress.Security.EscapeOutput 
 		return;
-
 	} else {
 
 		return $content;
-
 	}
 }
 
 /**
- * Shortcode support to display product notices.
- * 
- * # use attribute [type] to 
- * 
- * @since 1.1.1
- * 
- * @param array $atts Shortcode attributes.
- * @return Product notice markup.
+ * Shortcodes to display notice text.
  */
 add_shortcode( 'crwcpn-notice', 'crwcpn_sc_notice' );
 
+/**
+ * Shortcode support to display product notices.
+ *
+ * # use attribute [type] to
+ *
+ * @since 1.1.1
+ *
+ * @param array $atts Shortcode attributes.
+ * @return Product notice markup.
+ */
 function crwcpn_sc_notice( $atts ) {
-
 	$crwcpn_attrs = shortcode_atts(
 		array(
 			'type' => 'default',
@@ -264,19 +278,17 @@ function crwcpn_sc_notice( $atts ) {
 
 				$id     = (int) $crwcpn_attrs['id'];
 				$output = crwcpn_get_product_notice( $id, false );
-
 			} else {
 
 				$output = crwcpn_get_product_notice( null, false );
-
 			}
 
 			break;
 
 		case 'global':
-		default:		// Sbow global notice for any other type specified as shortcode attribute.
+		default:        // Sbow global notice for any other type specified as shortcode attribute.
 			$output = crwcpn_get_global_product_notice();
-			
+
 			break;
 	}
 

@@ -65,7 +65,7 @@ class CRWCPN_Admin {
 
 		?>
 		<div class="crwcpn-settings-wrap crwcpn-flex crwcpn-flex-wrap">
-			<div class="settings-col crwcpn-settings-left crwcpn-grid-1-2">
+			<div class="settings-col crwcpn-settings-left crwcpn-grid-2-3">
 				<?php woocommerce_admin_fields( $this->get_settings() ); ?>
 			</div>
 			<div class="settings-col crwcpn-settings-right crwcpn-grid-1-3">
@@ -83,6 +83,18 @@ class CRWCPN_Admin {
 	 * @since 1.0.0
 	 */
 	public function save_settings() {
+
+		/**
+		 * Reset the Display Rules checkbox when no categories and/or tags are selected.
+		 *
+		 * @since 1.2.0
+		 */
+		// phpcs:disable WordPress.Security.NonceVerification.Missing
+		if ( empty( $_POST['crwpcn_product_notice_display_by_categories'] ) && empty( $_POST['crwpcn_product_notice_display_by_tags'] ) ) {
+
+			// phpcs:disable WordPress.Security.NonceVerification.Missing
+			$_POST['crwpcn_global_product_notice_use_display_rules'] = isset( $_POST['crwpcn_global_product_notice_use_display_rules'] ) ? 0 : 1;
+		}
 
 		woocommerce_update_options( $this->get_settings() );
 	}
@@ -103,7 +115,19 @@ class CRWCPN_Admin {
 			$script_file_name = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? 'admin-settings.js' : 'admin-settings.min.js';
 
 			wp_enqueue_style( 'crwcpn-admin', crwcpn()->plugin_url() . '/assets/css/admin/admin.css', array(), CRWCPN_VER );
-			wp_enqueue_script( 'crwcpn-admin', $script_file_path . $script_file_name, array(), CRWCPN_VER, true );
+
+			if ( ! wp_script_is( 'crwcpn-admin', 'registered' ) ) {
+				wp_register_script( 'crwcpn-admin', $script_file_path . $script_file_name, array(), CRWCPN_VER, true );
+			}
+
+			$i18n_args = array(
+				'category_placeholder_text'     => __( 'Select one or more categories', 'product-notices-for-woocommerce' ),
+				'tag_placeholder_text'          => __( 'Select one or more tag', 'product-notices-for-woocommerce' ),
+				'display_rules_validation_text' => __( 'You must choose one or more categories and/or tags for Global Product Notice to be displayed, when Display Rules is enabled.', 'product-notices-woocommerce' ),
+			);
+
+			wp_localize_script( 'crwcpn-admin', 'crwcpn_admin', $i18n_args );
+			wp_enqueue_script( 'crwcpn-admin' );
 		}
 	}
 
@@ -133,6 +157,81 @@ class CRWCPN_Admin {
 				'class'    => 'regular-text',
 			),
 
+			/**
+			 * Display rules to show a notice on specific product categories and tags.
+			 *
+			 * @since 1.2.0
+			 */
+			array(
+				'type' => 'sectionend',
+				'id'   => 'crwpcn_display_rules_section',
+			),
+
+			array(
+				'title' => __( 'Display rules to show a notice', 'product-notices-woocommerce' ),
+				'type'  => 'title',
+				'desc'  => __( 'Use to displayed global notice on selected product categories and tags.', 'product-notices-woocommerce' ),
+				'id'    => 'crwpcn_display_rules_title',
+			),
+
+			array(
+				'title' => '',		// phpcs:ignore
+				'type'  => 'title',
+				'desc'  => ' ',	// phpcs:ignore
+				'id'    => 'crwpcn_display_warning_notice',
+			),
+
+			array(
+				'id'       => 'crwpcn_global_product_notice_use_display_rules',
+				'name'     => __( 'Enable Rules', 'product-notices-woocommerce' ),
+				'desc'     => '',
+				'type'     => 'checkbox',
+				'desc_tip' => true,
+			),
+
+			array(
+				'id'       => 'crwpcn_product_notice_display_by_categories',
+				'name'     => __( 'Show on Category', 'product-notices-woocommerce' ),
+				'desc'     => __( 'This is used to display product notice by categories.', 'product-notices-woocommerce' ),
+				'type'     => 'multiselect',
+				'class'    => 'wc-enhanced-select',
+				'options'  => self::crwcpn_get_product_categories(),
+				'desc_tip' => true,
+			),
+
+			array(
+				'id'       => 'crwpcn_product_notice_display_by_tags',
+				'name'     => __( 'Show on Tags', 'product-notices-woocommerce' ),
+				'desc'     => __( 'This is used to display product notice by tags.', 'product-notices-woocommerce' ),
+				'type'     => 'multiselect',
+				'class'    => 'wc-enhanced-select',
+				'options'  => self::crwcpn_get_product_tags(),
+				'desc_tip' => true,
+			),
+
+			/**
+			 * Color picker section.
+			 *
+			 * @since 1.2.0
+			 */
+			array(
+				'type' => 'sectionend',
+				'id'   => 'crwpcn_color_picker_section',
+			),
+
+			array(
+				'title' => __( 'Appearance', 'product-notices-woocommerce' ),
+				'type'  => 'title',
+				'desc'  => __( 'Customize the look & feel of your Global Notice.', 'product-notices-woocommerce' ),
+				'id'    => 'crwpcn_color_picker_title',
+			),
+
+			/**
+			 * Color picker options.
+			 *
+			 * @since 1.1.0
+			 */
+
 			array(
 				'id'       => 'crwpcn_product_notice_background_color',
 				'name'     => __( 'Notice Appearance', 'product-notices-woocommerce' ),
@@ -143,11 +242,6 @@ class CRWCPN_Admin {
 				'desc_tip' => true,
 			),
 
-			/**
-			 * Color picker options.
-			 *
-			 * @since 1.1.0
-			 */
 			array(
 				'id'       => 'crwpcn_product_notice_custom_background_color',
 				'name'     => __( 'Background Color', 'product-notices-woocommerce' ),
@@ -240,8 +334,11 @@ class CRWCPN_Admin {
 	/**
 	 * Imitates `wp_widget_rss_output()` function to render RSS widger markup.
 	 * Just added UTM codes for outgoing links to posts ;)
-	 * 
+	 *
 	 * @since 1.1.1
+	 *
+	 * @param string $rss  Check is a string or not.
+	 * @param array  $args  Default to empty array.
 	 */
 	public static function widget_rss_output( $rss, $args = array() ) {
 
@@ -268,14 +365,14 @@ class CRWCPN_Admin {
 			'items'        => 0,
 		);
 
-		$args         = wp_parse_args( $args, $default_args );
+		$args = wp_parse_args( $args, $default_args );
 
 		$items = (int) $args['items'];
-		
+
 		if ( $items < 1 || 20 < $items ) {
 			$items = 10;
 		}
-		
+
 		$show_summary = (int) $args['show_summary'];
 		$show_author  = (int) $args['show_author'];
 		$show_date    = (int) $args['show_date'];
@@ -289,17 +386,17 @@ class CRWCPN_Admin {
 
 		echo '<ul>';
 		foreach ( $rss->get_items( 0, $items ) as $item ) {
-			
+
 			$link = $item->get_link();
-			
+
 			while ( ! empty( $link ) && stristr( $link, 'http' ) !== $link ) {
 				$link = substr( $link, 1 );
 			}
-			
-			$link = esc_url( strip_tags( $link ) );
 
-			$title = esc_html( trim( strip_tags( $item->get_title() ) ) );
-			
+			$link = esc_url( wp_strip_all_tags( $link ) );
+
+			$title = esc_html( trim( wp_strip_all_tags( $item->get_title() ) ) );
+
 			if ( empty( $title ) ) {
 				$title = __( 'Untitled' );
 			}
@@ -311,7 +408,7 @@ class CRWCPN_Admin {
 			if ( $show_summary ) {
 				$summary = $desc;
 
-	            // Change existing [...] to [&hellip;].
+				// Check and change existing [...] to [&hellip;].
 				if ( '[...]' === substr( $summary, -5 ) ) {
 					$summary = substr( $summary, 0, -5 ) . '[&hellip;]';
 				}
@@ -333,7 +430,7 @@ class CRWCPN_Admin {
 				$author = $item->get_author();
 				if ( is_object( $author ) ) {
 					$author = $author->get_name();
-					$author = ' <cite>' . esc_html( strip_tags( $author ) ) . '</cite>';
+					$author = ' <cite>' . esc_html( wp_strip_all_tags( $author ) ) . '</cite>';
 				}
 			}
 
@@ -353,4 +450,51 @@ class CRWCPN_Admin {
 		unset( $rss );
 	}
 
+	/**
+	 * Function to get all products category.
+	 *
+	 *  @since 1.2.0
+	 */
+	public static function crwcpn_get_product_categories() {
+		$orderby    = 'name';
+		$order      = 'asc';
+		$hide_empty = false;
+
+		$cat_args = array(
+			'orderby'    => $orderby,
+			'order'      => $order,
+			'hide_empty' => $hide_empty,
+		);
+
+		// get products categories.
+		$crwcpn_product_categories = get_terms( 'product_cat', $cat_args );
+		$categories_name           = array();
+
+		foreach ( $crwcpn_product_categories as $category ) {
+
+			$categories_name[ $category->term_id ] = $category->name;
+		}
+
+		return apply_filters( 'crwcpn_product_categories', $categories_name );
+	}
+
+	/**
+	 * Function to get all products Tags.
+	 *
+	 * @since 1.2.0
+	 */
+	public static function crwcpn_get_product_tags() {
+
+		$terms     = get_terms( 'product_tag' );
+		$tags_name = array();
+
+		if ( ! empty( $terms ) && ! is_wp_error( $terms ) ) {
+
+			foreach ( $terms as $term ) {
+				$tags_name[ $term->term_id ] = $term->name;
+			}
+		}
+
+		return apply_filters( 'crwcpn_product_tags', $tags_name );
+	}
 }

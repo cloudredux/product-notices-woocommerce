@@ -2,9 +2,9 @@
 Contributors: cloudredux
 Tags: woocommerce, notices, notification, promo, alert, product notice, WooCommerce notice
 Requires at least: 5.2
-Tested up to: 5.8
+Tested up to: 5.9
 Requires PHP: 7.2
-Stable tag: 1.1.1
+Stable tag: 1.2.0
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl.html
 
@@ -86,6 +86,11 @@ We received a lot of requests for this feature and tada, it is here. You can use
 1. Product Notices for WooCommerce - Per-Product Notice Setting
 
 == Changelog ==
+
+= 1.2.0 = 
+1. **New:** Added display rules options for Global Notice. Display rules allow you to select one or more product categories and tags from the drop-down menu to display Global Notice on selected product categories and/or tags.
+1. Re-factored the admin CSS file to better control the admin screen columns. Also fixed issues with mobile responsive appearance.
+1. **Fixed:** Removed `wp_kses_post` validation/escaping in the shortcode output. This would allow certain shortcodes that output form elements work as expected on the frontend.
 
 = 1.1.1 =
 1. **New:** Added [crwcpn-notice] shortcode to allow using shortcodes to display notices configured in the plugin. The documentation on how to use the shortcode is available under *Description* on the [Details](https://wordpress.org/plugins/product-notices-for-woocommerce/#description) tab and [on this page here](https://cloudredux.com/contributions/wordpress/product-notices-for-woocommerce/?utm_source=plugin-wordpress-org&utm_medium=plugin-referral&utm_campaign=crwcpn-product-notices).

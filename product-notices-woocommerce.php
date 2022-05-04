@@ -9,7 +9,7 @@
  * Plugin Name:       Product Notices for WooCommerce
  * Plugin URI:        https://cloudredux.com/contributions/wordpress/product-notices-for-woocommerce/
  * Description:       Make the best of product announcements, promos, discounts, alerts, etc. on your store with this one of its kind WooCommerce extension.
- * Version:           1.1.1
+ * Version:           1.2.0
  * Requires at least: 5.2
  * Requires PHP:      7.2
  * Author:            CloudRedux
@@ -127,7 +127,7 @@ if ( ! class_exists( 'CRWCPN_Main' ) ) :
 
 			define( 'CRWCPN_SLUG', 'crwcpn-settings' );
 
-			define( 'CRWCPN_VER', '1.1.0' );
+			define( 'CRWCPN_VER', '1.2.0' );
 
 			define( 'CRWCPN_AS_SLUG', 'product-notices-woocommerce' );
 		}
